@@ -1,0 +1,72 @@
+﻿
+
+@if (mcn.MCNGameState==1) {
+    @*memorizing and choosing game state*@
+    if (memorizetimer >= 0)
+    {
+    <h2 id="game-title">REmember the colours and the numbers</h2>
+    <div>
+        <button class="memorizeelement" style=background-color:@mcn.firstcolor>@mcn.firstnumber</button>
+        <button class="memorizeelement" style=background-color:@mcn.secondcolor>@mcn.secondnumber</button>
+        <button class="memorizeelement" style=background-color:@mcn.thirdcolor>@mcn.thirdnumber</button>
+    </div>
+    <div style="font-size:35px;">
+        @memorizetimer
+    </div>
+    }
+    else
+    {
+        <h2>What @mcn.con was the @mcn.whichbox box?</h2>
+        <button @onclick="(() => mcn.CheckAnswer(1))">@mcn.answer1</button>
+        <button @onclick="(() => mcn.CheckAnswer(2))">@mcn.answer2</button>
+        <button @onclick="(() => mcn.CheckAnswer(3))">@mcn.answer3</button>
+        <h3>@mcn.mcnanswer</h3>
+    }
+}
+else if (mcn.MCNGameState == 2)
+{
+    @*correct answer game state*@
+    <h2>CORRECT ANSWER</h2>
+}
+else
+{
+    @*incorrect answer state*@
+    <h2>WRONG ANSWER</h2>
+}
+<br/>
+<br/>
+
+
+@code {
+
+    MemColorNum mcn = new MemColorNum();
+
+    //this is the onload overridded method
+    //you can do some kind of wait stuff idk but it works for now
+    protected override async Task OnInitializedAsync()
+    {
+        mcn.PickColorNums();
+        MemorizeStopWatch();
+        mcn.PickQ();
+        mcn.PickAnswers();
+    }
+
+    int memorizetimer = 2;
+    bool is_stopwatchrunning = false;
+
+    async Task MemorizeStopWatch()
+    {
+        is_stopwatchrunning = true;
+        while (is_stopwatchrunning)
+        {
+            await Task.Delay(1000);
+            if (is_stopwatchrunning)
+            {
+                memorizetimer = memorizetimer - 1;
+                StateHasChanged();
+            }
+        }
+    }
+
+
+}

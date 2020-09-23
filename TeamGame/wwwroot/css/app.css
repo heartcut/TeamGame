@@ -1,0 +1,137 @@
+﻿
+
+.mainwindow {
+    border: dashed 5px white;
+    margin: auto;
+    width: 95%;
+    height: 95vh;
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+.gamewindow {
+    text-align: center;
+    border: dashed 5px red;
+    background: black;
+    color: white;
+    border-radius: 1em;
+    padding: 1em;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    width: 1072px;
+    height: 603px;
+}
+.testcursor{
+
+    
+
+}
+.timer {
+
+    position: absolute;
+    text-align:center;
+    top: 20px;
+    color:white;
+}
+.name1 {
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: grey;
+    text-decoration: underline;
+    text-decoration-color: blue;
+    font-size: x-large;
+    font-family: Impact, Charcoal, sans-serif;
+    position: absolute;
+    left: 20px;
+    top: 20px;
+}
+.name2 {
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: grey;
+    text-decoration: underline;
+    text-decoration-color: red;
+    font-size: x-large;
+    font-family: Impact, Charcoal, sans-serif;
+    position: absolute;
+    right: 20px;
+    top: 20px;
+}
+.name3 {
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: grey;
+    text-decoration: underline;
+    text-decoration-color: green;
+    font-size: x-large;
+    font-family: Impact, Charcoal, sans-serif;
+    position: absolute;
+    left: 20px;
+    bottom: 20px;
+}
+.name4 {
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: grey;
+    text-decoration: underline;
+    text-decoration-color: yellow;
+    font-size: x-large;
+    font-family: Impact, Charcoal, sans-serif;
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+}
+
+.cantselect {
+    /*makes the text not highlightable*/
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE10+/Edge */
+    user-select: none; /* Standard */
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none; /* Old versions of Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; 
+}
+
+button {
+    cursor: url(/media/rainbowcurse.png) -2 -2,auto;
+}
+
+body {
+    background-color: black;
+    height: 95vh;
+    cursor: url(/media/rainbowcurse.png) -2 -2 ,auto;
+}
+
+.downatbot {
+    
+    bottom: 2px;
+    
+    text-align:center;
+}
+
+#blazor-error-ui {
+    background: lightyellow;
+    bottom: 0;
+    box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.2);
+    display: none;
+    left: 0;
+    padding: 0.6rem 1.25rem 0.7rem 1.25rem;
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+}
+
+#blazor-error-ui .dismiss {
+    cursor: pointer;
+    position: absolute;
+    right: 0.75rem;
+    top: 0.5rem;
+}

@@ -1,0 +1,42 @@
+﻿
+<h2 id="game-title">Find All Sixes</h2>
+<br />
+<div class="sixnine">
+    <span @onclick="(() => IsSix(0,0))">@sna[0, 0]</span> <span @onclick="(() => IsSix(0,1))">@sna[0, 1]</span>
+    <span @onclick="(() => IsSix(0,2))">@sna[0, 2]</span> <span @onclick="(() => IsSix(0,3))">@sna[0, 3]</span>
+    <span @onclick="(() => IsSix(0,4))">@sna[0, 4]</span> <span @onclick="(() => IsSix(0,5))">@sna[0, 5]</span>
+    <span @onclick="(() => IsSix(0,6))">@sna[0, 6]</span> <span @onclick="(() => IsSix(0,7))">@sna[0, 7]</span>
+</div>
+<div class="sixnine">
+    <span @onclick="(() => IsSix(1,0))">@sna[1, 0]</span> <span @onclick="(() => IsSix(1,1))">@sna[1, 1]</span>
+    <span @onclick="(() => IsSix(1,2))">@sna[1, 2]</span> <span @onclick="(() => IsSix(1,3))">@sna[1, 3]</span>
+    <span @onclick="(() => IsSix(1,4))">@sna[1, 4]</span> <span @onclick="(() => IsSix(1,5))">@sna[1, 5]</span>
+    <span @onclick="(() => IsSix(1,6))">@sna[1, 6]</span> <span @onclick="(() => IsSix(1,7))">@sna[1, 7]</span>
+</div>
+<div class="sixnine">
+    <span @onclick="(() => IsSix(2,0))">@sna[2, 0]</span> <span @onclick="(() => IsSix(2,1))">@sna[2, 1]</span>
+    <span @onclick="(() => IsSix(2,2))">@sna[2, 2]</span> <span @onclick="(() => IsSix(2,3))">@sna[2, 3]</span>
+    <span @onclick="(() => IsSix(2,4))">@sna[2, 4]</span> <span @onclick="(() => IsSix(2,5))">@sna[2, 5]</span>
+    <span @onclick="(() => IsSix(2,6))">@sna[2, 6]</span> <span @onclick="(() => IsSix(2,7))">@sna[2, 7]</span>
+
+</div>
+<div class="sixnine">
+    <span @onclick="(() => IsSix(3,0))">@sna[3, 0]</span> <span @onclick="(() => IsSix(3,1))">@sna[3, 1]</span>
+    <span @onclick="(() => IsSix(3,2))">@sna[3, 2]</span> <span @onclick="(() => IsSix(3,3))">@sna[3, 3]</span>
+    <span @onclick="(() => IsSix(3,4))">@sna[3, 4]</span> <span @onclick="(() => IsSix(3,5))">@sna[3, 5]</span>
+    <span @onclick="(() => IsSix(3,6))">@sna[3, 6]</span> <span @onclick="(() => IsSix(3,7))">@sna[3, 7]</span>
+</div>
+<div class="sixnine">@status</div>
+<div class="sixnine">@rightanswer</div>
+<div class="sixnine">@wronganswer</div>
+@code{
+
+
+    //this is the onload overridded method
+    //you can do some kind of wait stuff idk but it works for now
+    protected override async Task OnInitializedAsync()
+    {
+        randomSixes();
+    }
+
+}
