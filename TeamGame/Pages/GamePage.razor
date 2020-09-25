@@ -1,0 +1,122 @@
+﻿
+<div class="mainwindow" @onmousemove="MyG.MyGame.MyMousePos">
+    <img src="/media/rainbowcurse.png" style="position: absolute;top:@tc.getRealY();left:@tc.getRealX();z-index:3;">
+
+    <div class="gamewindow">
+        @if (choosegame == 0)
+        {
+            <TeamNumberGame />
+        }
+        @if (choosegame != 0)
+        {
+            <player1window>
+                <div class="playergame">
+                    <!--lmao i love it-->
+                    @if (choosegame == 1)
+                    {
+                        <SixNineGame />
+                    }
+                    @if (choosegame == 2)
+                    {
+                        <MakeSquare />
+                    }
+                    @if (choosegame == 3)
+                    {
+                        <MemorizeColorNumber />
+                    }
+                </div>
+                <div class="player1health">
+                    <!--i use the at ref to reference my other component to communicate acrros them-->
+                    <!--yea not too sure how it works yet but hey-->
+                    <Player1HealthBar @ref="MyG.p1hp" myhealth="MyG.play1hp" />
+
+                </div>
+            </player1window>
+            <player2window>
+                <div class="playergame">???????????????</div>
+                <button @onclick="(()=>tc.p2hp.HealthMinus())">lose health</button>
+                <button @onclick="(()=>tc.p2hp.HealthPlus())">gain health</button>
+                <div class="player1health">
+                    <Player2HealthBar @ref="MyG.p2hp" myhealth="MyG.play2hp" />
+                </div>
+            </player2window>
+            <player3window>
+                @*this is how you load components dynamicallys*@
+                @*will need to set it up to put in a var for a player and it returns the right game*@
+                @dynamicComponent(4)
+                <div class="player1health">
+                    <Player3HealthBar @ref="MyG.p3hp" myhealth="MyG.play3hp" />
+                </div>
+            </player3window>
+            <player4window>
+                @if (GameScript.GetMyGame() == "sng")
+                {
+                    <SixNineGame @ref="MyG.sng4" />
+                }
+                <div class="player1health">
+                    <Player4HealthBar @ref="MyG.p4hp" myhealth="MyG.play4hp" />
+                </div>
+            </player4window>
+        }
+    </div>
+
+    <div class="testbuttons">
+        <button @onclick="(() => ChooseAGame(0))">team play?</button>
+        <button @onclick="(() => ChooseAGame(1))">sixninegame?</button>
+        <button @onclick="(() => ChooseAGame(2))">makeasuqre?</button>
+        <button @onclick="(() => ChooseAGame(3))">mem colornum</button>
+        <button @onclick="(()=>tc.p1hp.HealthMinus())">p1 lose hp</button>
+        <button @onclick="(()=>tc.p1hp.HealthPlus())">p1 gain hp</button>
+        <a style="color:white;">@GameScript.cursx</a>
+        <a style="color:white;">@GameScript.cursy</a>
+        <a style="color:white;">@GameScript.Coordinates</a>
+        <a style="color:yellow;">@tc.Height</a>
+        <a style="color:yellow;">@tc.Width</a>
+        @*this is the players in lobby*@
+        @*<a style="color:white;">the amount of players in the lobby is:</a>
+            <a style="color:white;">@HowManyPlayersInLobby</a>
+            <a style="color:white;">you are player:</a>
+            <a style="color:white;">@WhatPlayerAmI</a>*@
+        <br />
+
+
+        @if (tc.GameVars is null)
+        {
+            <a style="color:white;">loading coordinates</a>
+        }
+        else
+        {
+            <a style="color:white;">the following are database variables</a>
+            <a style="color:white;">@tc.GameVars[0].P3Xcords</a>
+            <a style="color:white;">@tc.GameVars[0].P3Ycords</a>
+            <a style="color:white;">lobby number: </a>
+            <a style="color:white;">@tc.GameVars[0].LobbyNumber</a>
+            <a style="color:white;">play1 health</a>
+            <a style="color:white;">@tc.GameVars[0].P1Health</a>
+            <a style="color:white;">play2 health</a>
+            <a style="color:white;">@tc.GameVars[0].P2Health</a>
+            <a style="color:white;">play3 health</a>
+            <a style="color:white;">@tc.GameVars[0].P3Health</a>
+            <a style="color:white;">play4 health</a>
+            <a style="color:white;">@tc.GameVars[0].P4Health</a>
+            <a style="color:red;">what is my game?: </a>
+            <a style="color:white;">@GameScript.mycurrentgame</a>
+
+
+
+
+        }
+    </div>
+    <div class="names">
+        <div class="name1">Jesse</div>
+        <div class="name2">Jared</div>
+        <div class="name3">Cody</div>
+        <div class="name4">Matthew</div>
+    </div>
+    <div class="timer"><strong>@stopwatchvalue</strong></div>
+</div>
+@code{
+    
+    //TeamGame.Pages.GamePageLogic
+
+}

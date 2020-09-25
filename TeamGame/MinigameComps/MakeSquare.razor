@@ -2,21 +2,21 @@
 <h2 id="game-title">click the shapes to make a square</h2>
 <br />
 <div>
-    <div class="arrow-up" id="@mas.uprot"></div>
-    <div class="arrow-down" id="@mas.downrot"></div>
-    <div class="arrow-left" id="@mas.leftrot"></div>
-    <div class="arrow-right" id="@mas.rightrot"></div>
+    <div class="arrow-up" id="@uprot"></div>
+    <div class="arrow-down" id="@downrot"></div>
+    <div class="arrow-left" id="@leftrot"></div>
+    <div class="arrow-right" id="@rightrot"></div>
 </div>
 <div id="colorbuttons"class="botofgame">
-    <a class="colorbutton1" @onclick="()=>mas.SquareRotate(0)">Rotate</a>
-    <a class="colorbutton2" @onclick="()=>mas.SquareRotate(1)">Rotate</a>
-    <a class="colorbutton3" @onclick="()=>mas.SquareRotate(2)">Rotate</a>
-    <a class="colorbutton4" @onclick="()=>mas.SquareRotate(3)">Rotate</a>
+    <a class="colorbutton1" @onclick="()=>SquareRotate(0)">Rotate</a>
+    <a class="colorbutton2" @onclick="()=>SquareRotate(1)">Rotate</a>
+    <a class="colorbutton3" @onclick="()=>SquareRotate(2)">Rotate</a>
+    <a class="colorbutton4" @onclick="()=>SquareRotate(3)">Rotate</a>
 </div>
 
 
 @code {
 
-    MakeASquare mas = new MakeASquare();
+    //TeamGame.MinigameComps.MinigameLogic
 
 }

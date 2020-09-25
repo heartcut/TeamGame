@@ -12,6 +12,7 @@ using TeamGame.PlayerHealthBar;
 using System.Runtime.CompilerServices;
 using System.Data;
 using Microsoft.VisualBasic;
+using TeamGame.Pages;
 
 namespace TeamGame
 {
@@ -25,6 +26,9 @@ namespace TeamGame
         public static string p2currentgame;
         public static string p3currentgame;
         public static string p4currentgame = "sng";
+
+        
+
         //array for variables this is gunna be a bitch in sql need to learn more about connected tables hehe
         public static string[,] p4gamevars = new string[3, 10]
         {
@@ -77,22 +81,33 @@ namespace TeamGame
         public static string Coordinates { get; set; }
         public static double cursx { get; set; }
         public static double cursy { get; set; }
+        public static double cursxx { get; set; }
+        public static double cursyy { get; set; }
+
 
         public static void Player1MouseMoved(MouseEventArgs e)
         {
-            cursx = e.ClientX;
-            cursy = e.ClientY;
+            //this sets curs to the coords around the center bascially
+            cursx = e.ClientX-(GamePage.Width/2);
+            cursy = e.ClientY-(GamePage.Height/2);
+            cursxx = e.ClientX;
+            cursyy = e.ClientY;
         }
     }
 
 
     public class TestClass
     {
+        //js testing
+        //vars i get from the broswerservice
+        //TeamGame.JavaScript.BrowserService
+        public int Height { get; set; }
+        public int Width { get; set; }
 
-        internal SixNineGame sng1;
-        internal SixNineGame sng2;
-        internal SixNineGame sng3;
-        internal SixNineGame sng4;
+        internal SixNineGame sng1 = new SixNineGame();
+        internal SixNineGame sng2 = new SixNineGame();
+        internal SixNineGame sng3 = new SixNineGame();
+        internal SixNineGame sng4 = new SixNineGame();
         //internal can only be used by objects made from the class
         internal string getRealX()
         {
@@ -102,7 +117,7 @@ namespace TeamGame
             }
             else
             {
-                return (this.GameVars[0].Xcords) + "px";
+                return ((this.Width/2)+(this.GameVars[0].P3Xcords)) + "px";
             }
         }
         internal string getRealY()
@@ -113,7 +128,7 @@ namespace TeamGame
             }
             else
             {
-                return (this.GameVars[0].Ycords) + "px";
+                return ((this.Height / 2)+ (this.GameVars[0].P3Ycords)) + "px";
             }
         }
         public Player1HealthBar p1hp;
@@ -184,274 +199,6 @@ namespace TeamGame
     }
 
     //------all the individual games below---------
-
-    public class MakeASquare
-    {
-        public string uprot = "rotatezero";
-        public string downrot = "rotatezero";
-        public string leftrot = "rotatezero";
-        public string rightrot = "rotatezero";
-        public string NextPosition(string a)
-        {
-            if (a == "rotatezero")
-            {
-                return "rotateninty";
-            }
-            else if (a == "rotateninty")
-            {
-                return "rotateoneeighty";
-            }
-            else if (a == "rotateoneeighty")
-            {
-                return "rotatetwoseventy";
-            }
-            else if (a == "rotatetwoseventy")
-            {
-                return "rotatezero";
-            }
-            return "rotateoneeighty";
-        }
-        public void SquareRotate(int a)
-        {
-            if (a == 0)
-            {
-                uprot = NextPosition(uprot);
-            }
-            if (a == 1)
-            {
-                downrot = NextPosition(downrot);
-            }
-            if (a == 2)
-            {
-                leftrot = NextPosition(leftrot);
-            }
-            if (a == 3)
-            {
-                rightrot = NextPosition(rightrot);
-            }
-        }
-
-    }
-
-    public class MemColorNum
-    {
-        //1 is game state 2 is correct 3 is wrong
-        public int MCNGameState = 1;
-        Random rndm = new Random();
-        //below is picking that question to ask either color or number
-        public bool ranbefore = false;
-        public string con;
-        public void PickQ()
-        {
-            if (!ranbefore)
-            {
-                if (rndm.Next(1, 3) == 1)
-                {
-                    con = "color";
-                    ranbefore = true;
-                }
-                else
-                {
-                    con = "number";
-                    ranbefore = true;
-                }
-            }
-        }
-        //picking thw answer optoins
-        public string mcnanswer;
-        public string whichbox;
-        public string answer1;
-        public string answer2;
-        public string answer3;
-        public int whichisanswer;
-        public void PickAnswers()
-        {
-            if (con == "color")
-            {
-                //answer is a number
-                int whichcolor = rndm.Next(1, 4);
-                if (whichcolor == 1)
-                {
-                    mcnanswer = firstcolor;
-                    whichbox = "first";
-                }
-                else if (whichcolor == 2)
-                {
-                    mcnanswer = secondcolor;
-                    whichbox = "second";
-                }
-                else
-                {
-                    //whichcolor is 3
-                    mcnanswer = thirdcolor;
-                    whichbox = "third";
-
-                }
-            }
-            //i know its speghetti which all the if else but suck it
-            else
-            {
-                //answer is a number
-                int whichnumber = rndm.Next(1, 4);
-                if (whichnumber == 1)
-                {
-                    mcnanswer = firstnumber.ToString();
-                    whichbox = "first";
-                }
-                else if (whichnumber == 2)
-                {
-                    mcnanswer = secondnumber.ToString();
-                    whichbox = "second";
-                }
-                else
-                {
-                    //whichnumber is 3
-                    mcnanswer = thirdnumber.ToString();
-                    whichbox = "third";
-                }
-            }
-            //below i will populate variables to put in the button answers
-            //yea i know this is spaghetti too
-            whichisanswer = rndm.Next(1, 4);
-            if (whichisanswer == 1)
-            {
-                answer1 = mcnanswer;
-            }
-            else
-            {
-                if (con == "color")
-                {
-                    answer1 = colors[rndm.Next(0, 4)];
-                    while (answer1 == mcnanswer)
-                    {
-                        answer1 = colors[rndm.Next(0, 4)];
-                    }
-                }
-                else
-                {
-                    //is number
-                    answer1 = rndm.Next(0, 9).ToString();
-                    while (answer1 == mcnanswer.ToString())
-                    {
-                        answer1 = rndm.Next(0, 9).ToString();
-                    }
-                }
-            }
-            if (whichisanswer == 2)
-            {
-                answer2 = mcnanswer;
-            }
-            else
-            {
-                if (con == "color")
-                {
-                    answer2 = colors[rndm.Next(0, 4)];
-                    while (answer2 == answer1)
-                    {
-                        answer2 = colors[rndm.Next(0, 4)];
-                    }
-                }
-                else
-                {
-                    //is number
-                    answer2 = rndm.Next(0, 9).ToString();
-                    while (answer2 == answer1.ToString())
-                    {
-                        answer2 = rndm.Next(0, 9).ToString();
-                    }
-                }
-            }
-            if (whichisanswer == 3)
-            {
-                answer3 = mcnanswer;
-            }
-            else
-            {
-                if (con == "color")
-                {
-                    answer3 = colors[rndm.Next(0, 4)];
-                    while (answer3 == answer1 || answer3 == answer2)
-                    {
-                        answer3 = colors[rndm.Next(0, 4)];
-                    }
-                }
-                else
-                {
-                    //is number
-                    answer3 = rndm.Next(0, 9).ToString();
-                    while (answer3 == answer1.ToString() || answer3 == answer2)
-                    {
-                        answer3 = rndm.Next(0, 9).ToString();
-                    }
-                }
-            }
-        }
-        //picking the random colors and numbers
-        public bool picked = false;
-        public string firstcolor = "blue";
-        public string secondcolor = "blue";
-        public string thirdcolor = "blue";
-        public int firstnumber = 1;
-        public int secondnumber = 2;
-        public int thirdnumber = 3;
-        string[] colors = new string[4] { "blue", "red", "green", "yellow" };
-        public void PickColorNums()
-        {
-            if (!picked)
-            {
-                //gunna do some if else fuckery to get different for each which is what i did above for thw answers
-                firstcolor = colors[rndm.Next(0, 4)];
-                secondcolor = colors[rndm.Next(0, 4)];
-                if (secondcolor == firstcolor)
-                {
-                    while (secondcolor == firstcolor)
-                    {
-                        secondcolor = colors[rndm.Next(0, 4)];
-                    }
-                }
-                thirdcolor = colors[rndm.Next(0, 4)];
-                if (thirdcolor == firstcolor || thirdcolor == secondcolor)
-                {
-                    while (thirdcolor == firstcolor || thirdcolor == secondcolor)
-                    {
-                        thirdcolor = colors[rndm.Next(0, 4)];
-                    }
-                }
-                firstnumber = rndm.Next(0, 9);
-                secondnumber = rndm.Next(0, 9);
-                if (secondnumber == firstnumber)
-                {
-                    while (secondnumber == firstnumber)
-                    {
-                        secondnumber = rndm.Next(0, 9);
-                    }
-                }
-                thirdnumber = rndm.Next(0, 9);
-                if (thirdnumber == firstnumber || thirdnumber == secondnumber)
-                {
-                    while (thirdnumber == firstnumber || thirdnumber == secondnumber)
-                    {
-                        thirdnumber = rndm.Next(0, 9);
-                    }
-                }
-                picked = true;
-            }
-        }
-        public void CheckAnswer(int a)
-        {
-            if (a == whichisanswer)
-            {
-                //correct screen
-                MCNGameState = 2;
-            }
-            else
-            {
-                //incorrect screen
-                MCNGameState = 3;
-            }
-        }
-
-    }
 
 }
 

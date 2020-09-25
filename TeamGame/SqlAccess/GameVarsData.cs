@@ -29,7 +29,7 @@ namespace TeamGame.SqlAccess
         public Task PutVars(GameVarModel lobby)
         {
             string sql = @"UPDATE dbo.CursorPos
-                            SET Xcords=@Xcords,Ycords=@Ycords,P1Health=@P1Health,P2Health=@P2Health,P3Health=@P3Health,P4Health=@P4Health
+                            SET P1Health=@P1Health,P2Health=@P2Health,P3Health=@P3Health,P4Health=@P4Health
                             WHERE LobbyNumber = 0;";
 
             //the two parameters sql and person

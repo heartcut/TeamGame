@@ -1,0 +1,45 @@
+﻿
+@page "/landingpage"
+@page "/landingpage/{test:int}"
+
+@inject NavigationManager navManager
+
+<h3 style="color:white">LandingPage</h3>
+<div style="color:white">something about a lobby herre probably</div>
+@if (test == null)
+{
+    <h3 style="color:white">InputTest</h3>
+    <h4 style="color:white">Query String Demo</h4>
+    <div style="color:white">lobby must be number 0-9</div>
+    <input @bind="hey">
+    <button @onclick="Navigate">Click</button>
+}
+<div style="color:white">currnet lobby number is putithere</div>
+@if (test != null)
+{
+    <div style="color:white">currnet lobby number is @test</div>
+}
+@code {
+    //commenton this later please
+    //only purpose of this page is to see if the lobby typed in is good
+    //if it is it redirects and the container game page checks if its full
+    int hey;
+    [Parameter]
+    public string test { get; set; }
+    public int holderurl;
+    void Navigate()
+    {
+        int mylobbyint = hey;
+        if ((hey.ToString()).Length <= 5)
+        {
+            //some test to see if lobby if full
+            navManager.NavigateTo("/game/" + hey);
+        }
+        else
+        {
+            //lobby isnt full its just a bad lobby number
+            //fix later?
+            navManager.NavigateTo("/badlobby");
+        }
+    }
+}

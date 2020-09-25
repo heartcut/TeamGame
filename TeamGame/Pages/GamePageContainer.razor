@@ -1,0 +1,24 @@
+﻿@page "/game/{test:int}"
+
+@inject NavigationManager navManager
+
+
+<GamePage MyLobbyNum="@lobnum" MyPlayerNum="@playnum"/>
+
+@code {
+
+    //to put into my game component
+    int lobnum =1;
+    int playnum = 1;
+
+    [Parameter]
+    public int test { get; set; }
+
+    int mylobbyint;
+    string mylobbystr;
+    protected override async Task OnInitializedAsync()
+    {
+        //here i need to see if the lobby is full
+        //and then set the vars
+    }
+}
