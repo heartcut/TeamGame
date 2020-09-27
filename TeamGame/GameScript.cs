@@ -19,59 +19,87 @@ namespace TeamGame
 
     public class GameScript
     {
-
-        //these vars are for updating your own game to be pulled by others
-        public static string mycurrentgame;
-        public static string p1currentgame;
-        public static string p2currentgame;
-        public static string p3currentgame;
-        public static string p4currentgame = "sng";
-
+        public static string GetPlayerMouse(GameVarModel gvm,int whichplayer,string xory)
+        {
+            switch (whichplayer)
+            {
+                case 1:
+                    if (xory == "x")
+                    {
+                        return (gvm.Width / 2) + gvm.P1Xcords + "px";
+                    }
+                    else
+                    {
+                        return (gvm.Height / 2) + gvm.P1Ycords + "px";
+                    }
+                case 2:
+                    if (xory == "x")
+                    {
+                        return (gvm.Width / 2) + gvm.P2Xcords + "px";
+                    }
+                    else
+                    {
+                        return (gvm.Height / 2) + gvm.P2Ycords + "px";
+                    }
+                case 3:
+                    if (xory == "x")
+                    {
+                        return (gvm.Width / 2) + gvm.P3Xcords + "px";
+                    }
+                    else
+                    {
+                        return (gvm.Height / 2) + gvm.P3Ycords + "px";
+                    }
+                case 4:
+                    if (xory == "x")
+                    {
+                        return (gvm.Width / 2) + gvm.P4Xcords + "px";
+                    }
+                    else
+                    {
+                        return (gvm.Height / 2) + gvm.P4Ycords + "px";
+                    }
+                default:
+                    return "0px";
+            }
+        }
         
 
-        //array for variables this is gunna be a bitch in sql need to learn more about connected tables hehe
-        public static string[,] p4gamevars = new string[3, 10]
-        {
-                {"sng","where 1st six is","where second six is","got first?","get second?","","","","","" }, //[00][01]
-                {"mcn","first box","2nd box","3rd box","1st color","2nd color","3rd color","question color","question which spot","" }, //[10][11]
-                {"ms","1st box rotation","2nd box rotation","3rd box rotation","4th box rotation","","","","","" }
-
-        };
         //i will use the below to choose which game im playing locally
-        public static string GetMyGame()
-        {
-            mycurrentgame = "sng";
-            return "sng";
-        }
-        public static string GetGame()
-        {
-            if (GetMyGame() == "sng")
-            {
-                return "sixninegame";
-            }
-            return "idk";
-        }
+        //public static string GetMyGame()
+        //{
+        //    mycurrentgame = "sng";
+        //    return "sng";
+        //}
+        //public static string GetGame()
+        //{
+        //    if (GetMyGame() == "sng")
+        //    {
+        //        return "sixninegame";
+        //    }
+        //    return "idk";
+        //}
         //this will be used to get other players games and update your ui
-        public static string GetPlayerGame(int a)
-        {
-            if (a == 1)
-            {
-                return p1currentgame;
-            }
-            if (a == 2)
-            {
-                return p2currentgame;
-            }
-            if (a == 3)
-            {
-                return p3currentgame;
-            }
-            if (a == 4)
-            {
-                return p4currentgame;
-            }
-            return "sorry you got an error bud";
-        }
+        //public static string GetPlayerGame(int a)
+        //{
+        //    if (a == 1)
+        //    {
+        //        return p1currentgame;
+        //    }
+        //    if (a == 2)
+        //    {
+        //        return p2currentgame;
+        //    }
+        //    if (a == 3)
+        //    {
+        //        return p3currentgame;
+        //    }
+        //    if (a == 4)
+        //    {
+        //        return p4currentgame;
+        //    }
+        //    return "sorry you got an error bud";
+        //}
 
         public static int play1hp = 7;
         public static int play2hp = 7;
@@ -79,58 +107,32 @@ namespace TeamGame
         public static int play4hp = 11;
 
         public static string Coordinates { get; set; }
-        public static double cursx { get; set; }
-        public static double cursy { get; set; }
-        public static double cursxx { get; set; }
-        public static double cursyy { get; set; }
+        //public static double cursx { get; set; }
+        //public static double cursy { get; set; }
+        //public static double cursxx { get; set; }
+        //public static double cursyy { get; set; }
 
 
-        public static void Player1MouseMoved(MouseEventArgs e)
-        {
-            //this sets curs to the coords around the center bascially
-            cursx = e.ClientX-(GamePage.Width/2);
-            cursy = e.ClientY-(GamePage.Height/2);
-            cursxx = e.ClientX;
-            cursyy = e.ClientY;
-        }
+        //public static void Player1MouseMoved(MouseEventArgs e)
+        //{
+        //    //this sets curs to the coords around the center bascially
+        //    cursx = e.ClientX-(GamePage.Width/2);
+        //    cursy = e.ClientY-(GamePage.Height/2);
+        //    cursxx = e.ClientX;
+        //    cursyy = e.ClientY;
+        //}
     }
 
 
     public class TestClass
     {
-        //js testing
-        //vars i get from the broswerservice
-        //TeamGame.JavaScript.BrowserService
-        public int Height { get; set; }
-        public int Width { get; set; }
+        
 
         internal SixNineGame sng1 = new SixNineGame();
         internal SixNineGame sng2 = new SixNineGame();
         internal SixNineGame sng3 = new SixNineGame();
         internal SixNineGame sng4 = new SixNineGame();
-        //internal can only be used by objects made from the class
-        internal string getRealX()
-        {
-            if (this.GameVars is null)
-            {
-                return "0";
-            }
-            else
-            {
-                return ((this.Width/2)+(this.GameVars[0].P3Xcords)) + "px";
-            }
-        }
-        internal string getRealY()
-        {
-            if (this.GameVars is null)
-            {
-                return "0";
-            }
-            else
-            {
-                return ((this.Height / 2)+ (this.GameVars[0].P3Ycords)) + "px";
-            }
-        }
+        
         public Player1HealthBar p1hp;
         public Player2HealthBar p2hp;
         public Player3HealthBar p3hp;

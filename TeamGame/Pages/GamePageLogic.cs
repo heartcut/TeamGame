@@ -11,6 +11,7 @@ using TeamGame.PlayerHealthBar;
 using Microsoft.AspNetCore.Components;
 using TeamGame.MinigameComps;
 
+
 namespace TeamGame.Pages
 {
     public partial class GamePage
@@ -32,38 +33,53 @@ namespace TeamGame.Pages
         [Inject]
         protected NavigationManager navManager{ get; set; }
 
+        GameVarModel MyG;
+        protected override async Task OnInitializedAsync()
+        {
+            //im putting this here because of the static initializer stuff
+            MyG = MyVarsGetter.GetSQL(MyLobbyNum);
 
-        TestClass tc = new TestClass();
-        
-        RenderFragment dynamicComponent(int a) => builder =>
+            //below goes with sql
+            //GetPlayerAmountInLobby();
+            //lmao
+            StopWatch();
+            KeepRunning();
+
+        }
+
+        RenderFragment dynamicComponent(GameVarModel gvm , int a) => builder =>
         {
             if (a == 4)
             {
                 //is player four
-                if (GameScript.p4currentgame == "sng")
+                if (gvm.P4Game == "sng")
                 {
                     //is the sixninegame
                     builder.OpenComponent(0, typeof(SixNineGame));
                     builder.CloseComponent();
                 }
-                else if (GameScript.p4currentgame == "another game")
+                else if (gvm.P4Game == null)
                 {
                     //render the other game
+                    builder.OpenComponent(0, typeof(SixNineGame));
+                    builder.CloseComponent();
                 }
 
             }
             if (a == 1)
             {
                 //is player one
-                if (GameScript.p1currentgame == "sng")
+                if (gvm.P1Game == "sng")
                 {
                     //is the sixninegame
                     builder.OpenComponent(0, typeof(SixNineGame));
                     builder.CloseComponent();
                 }
-                else if (GameScript.p1currentgame == "another game")
+                else if (gvm.P1Game == null)
                 {
                     //render the other game
+                    builder.OpenComponent(0, typeof(SixNineGame));
+                    builder.CloseComponent();
                 }
 
             }
@@ -74,20 +90,7 @@ namespace TeamGame.Pages
         {
             choosegame = a;
         }
-        GameVarModel MyG;
-        protected override async Task OnInitializedAsync()
-        {
-            //im putting this here because of the static initializer stuff
-            MyG = new GameVarModel(MyLobbyNum, MyPlayerNum);
-
-            //below goes with sql
-            MyG.MyGame.GameVars = await _db.GetVars();
-            //GetPlayerAmountInLobby();
-            //lmao
-            StopWatch();
-            KeepRunning();
-
-        }
+        
 
         //oninitizlized async is called twice with server and component render
         //onafter is only called once afterwards so i used it to update the db and not get doubles
@@ -100,12 +103,6 @@ namespace TeamGame.Pages
         //    }
         //}
 
-        //js testing
-        //vars i get from the broswerservice
-        //TeamGame.JavaScript.BrowserService
-        public static int Height { get; set; }
-        public static int Width { get; set; }
-
         bool is_rendered = false;
         async Task KeepRunning()
         {
@@ -117,13 +114,11 @@ namespace TeamGame.Pages
                 {
                     //js the three below
                     var dimension = await Service.GetDimensions();
-                    Height = dimension.Height;
-                    MyG.MyGame.Height = dimension.Height;
-                    MyG.MyGame.Width = dimension.Width;
-                    Width = dimension.Width;
+                    MyG.Height = dimension.Height;
+                    MyG.Width = dimension.Width;
 
-                    MyG.MyGame.GameVars = await _db.GetVars();
-                    await InsertVars();
+                    //need to put the setting and getting vars here to update constantly
+                    //could also put the mouse stuff in whatever i call to update
                     StateHasChanged();
                 }
             }
@@ -191,28 +186,11 @@ namespace TeamGame.Pages
         //        navManager.NavigateTo("/lobbyfull");
         //    }
         //}
-        private async Task InsertVars()
+        
+        public void Dispose()
         {
-            //converting models types manually
-            MyG.P1Xcords = GameScript.cursx;
-            MyG.P1Ycords = GameScript.cursy;
-            //p.Xcords = newGameVar.Xcords;
-            //p.Ycords = newGameVar.Ycords;
-            MyG.P1Health = GameScript.play1hp.ToString();
-            MyG.P2Health = GameScript.play2hp.ToString();
-
-            MyG.P3Health = GameScript.play3hp.ToString();
-            MyG.P4Health = GameScript.play4hp.ToString();
-            //returns the mycurrentgame var because thats all i need to give to the db
-            MyG.P3Game = GameScript.mycurrentgame;
-            //actually putting in here
-            await _db.PutVars(MyG);
-            //below is adding the person to the table
-            //but not from the db from the new created person object p that we put in
-            //below is cleaing the slate of the inserted person and the values
-            //newGameVar = new DisplayGameVarsModel();
+            DBConnection.ILeft(MyLobbyNum);
         }
-
 
     }
 }
