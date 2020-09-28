@@ -36,12 +36,8 @@ namespace TeamGame.Pages
         GameVarModel MyG;
         protected override async Task OnInitializedAsync()
         {
-            //im putting this here because of the static initializer stuff
             MyG = MyVarsGetter.GetSQL(MyLobbyNum);
 
-            //below goes with sql
-            //GetPlayerAmountInLobby();
-            //lmao
             StopWatch();
             KeepRunning();
 
@@ -64,7 +60,6 @@ namespace TeamGame.Pages
                     builder.OpenComponent(0, typeof(SixNineGame));
                     builder.CloseComponent();
                 }
-
             }
             if (a == 1)
             {
@@ -81,16 +76,13 @@ namespace TeamGame.Pages
                     builder.OpenComponent(0, typeof(SixNineGame));
                     builder.CloseComponent();
                 }
-
             }
-
         };
         int choosegame = 1;
         void ChooseAGame(int a)
         {
             choosegame = a;
         }
-        
 
         //oninitizlized async is called twice with server and component render
         //onafter is only called once afterwards so i used it to update the db and not get doubles

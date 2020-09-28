@@ -2,8 +2,16 @@
 
 @inject NavigationManager navManager
 
+@if (DBConnection.CheckLobby(lobnum))
+{
+    //code to populate the player in the db
+    <GamePage MyLobbyNum="@lobnum" MyPlayerNum="@playnum" />
+}
+else
+{
+    navManager.NavigateTo("/lobbyfull");
+}
 
-<GamePage MyLobbyNum="@lobnum" MyPlayerNum="@playnum"/>
 
 @code {
 
@@ -19,15 +27,16 @@
     protected override async Task OnInitializedAsync()
     {
         lobnum = test;
-        if (DBConnection.CheckLobby(lobnum))
-        {
-            //code to populate the player in the db
-        }
-        else
-        {
-            navManager.NavigateTo("/lobbyfull");
-        }
+        //if (DBConnection.CheckLobby(lobnum))
+        //{
+        //    //code to populate the player in the db
+        //}
+        //else
+        //{
+        //    navManager.NavigateTo("/lobbyfull");
+        //}
         //here i need to see if the lobby is full
         //and then set the vars
     }
+    
 }
