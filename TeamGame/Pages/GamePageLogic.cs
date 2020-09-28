@@ -29,8 +29,6 @@ namespace TeamGame.Pages
 
         //all of these are instead of doing the at inject
         [Inject]
-        protected GameVarsData _db { get; set; }
-        [Inject]
         protected NavigationManager navManager{ get; set; }
 
         GameVarModel MyG;

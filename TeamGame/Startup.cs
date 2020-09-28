@@ -35,9 +35,6 @@ namespace TeamGame
         {
             services.AddRazorPages();
             services.AddServerSideBlazor();
-            //below is for the sql
-            services.AddTransient<SqlDataAccess>();
-            services.AddTransient<GameVarsData>();
             //for my javascript
             services.AddScoped<BrowserService>();
         }

@@ -142,8 +142,6 @@ namespace TeamGame
         public static int play2hp = 11;
         public static int play3hp = 11;
         public static int play4hp = 11;
-        public GameVarsData _db;
-        NavigationManager navManager;
         public void HealthMinus(int a)
         {
             if (a == 1)
