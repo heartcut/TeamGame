@@ -31,17 +31,19 @@ namespace TeamGame.Pages
         [Inject]
         protected NavigationManager navManager{ get; set; }
 
-        GameVarModel MyG;
+        GameVarModel MyG = new GameVarModel();
+        DBGameVarModel MyDBVars;
         protected override async Task OnInitializedAsync()
         {
-            MyG = MyVarsGetter.GetSQL(MyLobbyNum);
+
+            MyDBVars = MyVarsGetter.GetSQL(MyLobbyNum);
 
             StopWatch();
             KeepRunning();
 
         }
 
-        RenderFragment dynamicComponent(GameVarModel gvm , int a) => builder =>
+        RenderFragment dynamicComponent(DBGameVarModel gvm , int a) => builder =>
         {
             if (a == 4)
             {
@@ -107,13 +109,20 @@ namespace TeamGame.Pages
                     MyG.Height = dimension.Height;
                     MyG.Width = dimension.Width;
 
+                    MyDBVars = MyVarsGetter.GetSQL(MyLobbyNum);
+                    MyDBVars.P1Xcords = MyG.mycursx;
+                    MyDBVars.P1Ycords = MyG.mycursy;
+
+                    MyVarsSetter.SetSQL(MyDBVars,MyLobbyNum);
+
+                    
                     //need to put the setting and getting vars here to update constantly
                     //could also put the mouse stuff in whatever i call to update
                     StateHasChanged();
                 }
             }
         }
-
+        
         TimeSpan stopwatchvalue = new TimeSpan();
         bool is_stopwatchrunning = false;
         async Task StopWatch()

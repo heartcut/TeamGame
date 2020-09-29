@@ -1,11 +1,12 @@
 ﻿@implements IDisposable
 
 <div class="mainwindow" @onmousemove="MyG.MouseMoved">
-    <img src="/media/rainbowcurse.png" style="position: absolute;top:@GameScript.GetPlayerMouse(MyG,2,"y");left:@GameScript.GetPlayerMouse(MyG,2,"x");z-index:3;">
-    <img src="/media/rainbowcurse.png" style="position: absolute;top:@GameScript.GetPlayerMouse(MyG,3,"y");left:@GameScript.GetPlayerMouse(MyG,3,"x");z-index:3;">
-    <img src="/media/rainbowcurse.png" style="position: absolute;top:@GameScript.GetPlayerMouse(MyG,4,"y");left:@GameScript.GetPlayerMouse(MyG,4,"x");z-index:3;">
+    <img src="/media/rainbowcurse.png" style="position: absolute;top:@GameScript.GetPlayerMouse(MyG,MyDBVars,1,"y");left:@GameScript.GetPlayerMouse(MyG,MyDBVars,1,"x");z-index:3;">
+    <img src="/media/rainbowcurse.png" style="position: absolute;top:@GameScript.GetPlayerMouse(MyG,MyDBVars,2,"y");left:@GameScript.GetPlayerMouse(MyG,MyDBVars,2,"x");z-index:3;">
+    <img src="/media/rainbowcurse.png" style="position: absolute;top:@GameScript.GetPlayerMouse(MyG,MyDBVars,3,"y");left:@GameScript.GetPlayerMouse(MyG,MyDBVars,3,"x");z-index:3;">
+    <img src="/media/rainbowcurse.png" style="position: absolute;top:@GameScript.GetPlayerMouse(MyG,MyDBVars,4,"y");left:@GameScript.GetPlayerMouse(MyG,MyDBVars,4,"x");z-index:3;">
 
-    <div class="gamewindow">
+    <div class="gamewindow" @onmousemove="MyG.MouseMoved">
         @if (choosegame == 0)
         {
             <TeamNumberGame />
@@ -31,31 +32,31 @@
                 <div class="player1health">
                     <!--i use the at ref to reference my other component to communicate acrros them-->
                     <!--yea not too sure how it works yet but hey-->
-                    <Player1HealthBar myhealth="MyG.P1Health" />
+                    <Player1HealthBar myhealth="MyDBVars.P1Health" />
 
                 </div>
             </player1window>
             <player2window>
                 <div class="playergame">???????????????</div>
                 <div class="player1health">
-                    <Player2HealthBar myhealth="MyG.P2Health" />
+                    <Player2HealthBar myhealth="MyDBVars.P2Health" />
                 </div>
             </player2window>
             <player3window>
                 @*this is how you load components dynamicallys*@
                 @*will need to set it up to put in a var for a player and it returns the right game*@
-                @dynamicComponent(MyG,4)
+                @dynamicComponent(MyDBVars, 4)
                 <div class="player1health">
-                    <Player3HealthBar myhealth="MyG.P3Health" />
+                    <Player3HealthBar myhealth="MyDBVars.P3Health" />
                 </div>
             </player3window>
             <player4window>
-                @if (MyG.P4Game == "sng")
+                @if (MyDBVars.P4Game == "sng")
                 {
                     <SixNineGame />
                 }
                 <div class="player1health">
-                    <Player4HealthBar myhealth="MyG.P4Health" />
+                    <Player4HealthBar myhealth="MyDBVars.P4Health" />
                 </div>
             </player4window>
         }
@@ -67,7 +68,7 @@
         <button @onclick="(() => ChooseAGame(2))">makeasuqre?</button>
         <button @onclick="(() => ChooseAGame(3))">mem colornum</button>
         <a style="color:green;">your lobby number is: @MyLobbyNum</a>
-        <a style="color:green;">player number is: @MyLobbyNum</a>
+        <a style="color:green;">player number is: @MyPlayerNum</a>
         <a style="color:white;">@MyG.mycursx</a>
         <a style="color:white;">@MyG.mycursy</a>
         <a style="color:yellow;">@MyG.Height</a>
@@ -87,18 +88,20 @@
         else
         {
             <a style="color:white;">the following are database variables</a>
-            <a style="color:white;">@MyG.P3Xcords</a>
-            <a style="color:white;">@MyG.P3Ycords</a>
+            <a style="color:white;">@MyDBVars.P1Xcords</a>
+            <a style="color:white;">@MyDBVars.P1Ycords</a>
+            <a style="color:white;">@MyDBVars.P3Xcords</a>
+            <a style="color:white;">@MyDBVars.P3Ycords</a>
             <a style="color:white;">lobby number: </a>
-            <a style="color:white;">@MyG.LobbyNumber</a>
+            <a style="color:white;">@MyDBVars.LobbyNumber</a>
             <a style="color:white;">play1 health</a>
-            <a style="color:white;">@MyG.P1Health</a>
+            <a style="color:white;">@MyDBVars.P1Health</a>
             <a style="color:white;">play2 health</a>
-            <a style="color:white;">@MyG.P2Health</a>
+            <a style="color:white;">@MyDBVars.P2Health</a>
             <a style="color:white;">play3 health</a>
-            <a style="color:white;">@MyG.P3Health</a>
+            <a style="color:white;">@MyDBVars.P3Health</a>
             <a style="color:white;">play4 health</a>
-            <a style="color:white;">@MyG.P4Health</a>
+            <a style="color:white;">@MyDBVars.P4Health</a>
             <a style="color:red;">what is my game?: </a>
             <a style="color:white;">@MyG.MyCurrentGame</a>
 

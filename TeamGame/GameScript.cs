@@ -19,45 +19,45 @@ namespace TeamGame
 
     public class GameScript
     {
-        public static string GetPlayerMouse(GameVarModel gvm,int whichplayer,string xory)
+        public static string GetPlayerMouse(GameVarModel gvm,DBGameVarModel dbgvm ,int whichplayer,string xory)
         {
             switch (whichplayer)
             {
                 case 1:
                     if (xory == "x")
                     {
-                        return (gvm.Width / 2) + gvm.P1Xcords + "px";
+                        return (gvm.Width / 2) + dbgvm.P1Xcords +50+ "px";
                     }
                     else
                     {
-                        return (gvm.Height / 2) + gvm.P1Ycords + "px";
+                        return (gvm.Height / 2) + dbgvm.P1Ycords +50+ "px";
                     }
                 case 2:
                     if (xory == "x")
                     {
-                        return (gvm.Width / 2) + gvm.P2Xcords + "px";
+                        return (gvm.Width / 2) + dbgvm.P2Xcords + "px";
                     }
                     else
                     {
-                        return (gvm.Height / 2) + gvm.P2Ycords + "px";
+                        return (gvm.Height / 2) + dbgvm.P2Ycords + "px";
                     }
                 case 3:
                     if (xory == "x")
                     {
-                        return (gvm.Width / 2) + gvm.P3Xcords + "px";
+                        return (gvm.Width / 2) + dbgvm.P3Xcords + "px";
                     }
                     else
                     {
-                        return (gvm.Height / 2) + gvm.P3Ycords + "px";
+                        return (gvm.Height / 2) + dbgvm.P3Ycords + "px";
                     }
                 case 4:
                     if (xory == "x")
                     {
-                        return (gvm.Width / 2) + gvm.P4Xcords + "px";
+                        return (gvm.Width / 2) + dbgvm.P4Xcords + "px";
                     }
                     else
                     {
-                        return (gvm.Height / 2) + gvm.P4Ycords + "px";
+                        return (gvm.Height / 2) + dbgvm.P4Ycords + "px";
                     }
                 default:
                     return "0px";
