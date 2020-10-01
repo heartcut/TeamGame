@@ -1,4 +1,5 @@
 ﻿using Dapper;
+using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -33,6 +34,48 @@ namespace TeamGame.SqlAccess
 
             return canjoin;
         }
+        public static NavigationManager navManager;
+        public static int IJoined(int lobnumber)
+        {
+            //uncomment to get the lobby players stuff working
+            var cs = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\source\ServerSideBlazor\DataAccessLibrary\Database1.mdf;Integrated Security=True;Connect Timeout=30";
+
+            using var con = new SqlConnection(cs);
+            con.Open();
+            //new id 3 means making a new car object with the id = to 3??
+            DBGameVarModel GVM = new DBGameVarModel();
+            GVM = con.QueryFirst<DBGameVarModel>(@"SELECT * FROM CursorPos WHERE LobbyNumber=" + lobnumber);
+            int players = GVM.PlayersInLobby;
+            if (players == 0)
+            {
+                players++;
+                con.Execute("UPDATE CursorPos SET PlayersInLobby =" + players + " WHERE LobbyNumber = " + lobnumber + "; ");
+                return 1;
+            }
+            else if (players == 1)
+            {
+                players++;
+                con.Execute("UPDATE CursorPos SET PlayersInLobby =" + players + " WHERE LobbyNumber = " + lobnumber + "; ");
+                return 2;
+            }
+            else if (players == 2)
+            {
+                players++;
+                con.Execute("UPDATE CursorPos SET PlayersInLobby =" + players + " WHERE LobbyNumber = " + lobnumber + "; ");
+                return 3;
+            }
+            else if (players == 3)
+            {
+                players++;
+                con.Execute("UPDATE CursorPos SET PlayersInLobby =" + players + " WHERE LobbyNumber = " + lobnumber + "; ");
+                return 4;
+            }
+            else
+            {
+                navManager.NavigateTo("/lobbyfull");
+                return 0;
+            }
+        }
         public static void ILeft(int lobnumber)
         {
             var cs = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\source\ServerSideBlazor\DataAccessLibrary\Database1.mdf;Integrated Security=True;Connect Timeout=30";
@@ -42,7 +85,7 @@ namespace TeamGame.SqlAccess
             //new id 3 means making a new car object with the id = to 3??
             int players = con.QueryFirst<int>(@"SELECT PlayersInLobby FROM CursorPos WHERE LobbyNumber=" + lobnumber);
             players--;
-            con.ExecuteAsync("UPDATE CursorPos SET PlayersInLobby ="+players+" WHERE LobbyNumber = " + lobnumber + "; ");
+            con.Execute("UPDATE CursorPos SET PlayersInLobby ="+players+" WHERE LobbyNumber = " + lobnumber + "; ");
             
             con.Dispose();
 

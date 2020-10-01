@@ -8,9 +8,9 @@ namespace TeamGame.SqlAccess.GameStateModels
     public class DBGameVarModel
     {
         
-        public string LobbyNumber { get; set; }
+        public int LobbyNumber { get; set; }
 
-        public string PlayersInLobby { get; set; }
+        public int PlayersInLobby { get; set; }
 
         public string P1Game { get; set; }
         public string P2Game { get; set; }

@@ -86,14 +86,10 @@ namespace TeamGame.Pages
 
         //oninitizlized async is called twice with server and component render
         //onafter is only called once afterwards so i used it to update the db and not get doubles
-        //uncomment for lobby
-        //protected override async Task OnAfterRenderAsync(bool firstRender)
-        //{
-        //    if (firstRender)
-        //    {
-        //        GetPlayerAmountInLobby();
-        //    }
-        //}
+        protected override async Task OnAfterRenderAsync(bool firstRender)
+        {
+            
+        }
 
         bool is_rendered = false;
         async Task KeepRunning()
@@ -108,12 +104,10 @@ namespace TeamGame.Pages
                     var dimension = await Service.GetDimensions();
                     MyG.Height = dimension.Height;
                     MyG.Width = dimension.Width;
-
                     MyDBVars = MyVarsGetter.GetSQL(MyLobbyNum);
-                    MyDBVars.P1Xcords = MyG.mycursx;
-                    MyDBVars.P1Ycords = MyG.mycursy;
-
-                    MyVarsSetter.SetSQL(MyDBVars,MyLobbyNum);
+                    //only passing in x and y cords for mouse right now because its cleaner code there
+                    //will probably need to change as i upscale the vars pass who knows :)
+                    MyVarsSetter.SetSQL(MyLobbyNum,MyPlayerNum,MyG.mycursx,MyG.mycursy);
 
                     
                     //need to put the setting and getting vars here to update constantly
@@ -138,53 +132,7 @@ namespace TeamGame.Pages
                 }
             }
         }
-        //uncomment to get the lobby players stuff working
-        //public string WhatPlayerAmI;
-        //public string HowManyPlayersInLobby;
-        //public void GetPlayerAmountInLobby()
-        //{
-        //    bool pickedmyplayerspot = false;
-        //    if (tc.GameVars[0].P1Present == "0")
-        //    {
-        //        WhatPlayerAmI = "1";
-        //        HowManyPlayersInLobby = "1";
-        //        pickedmyplayerspot = true;
-        //        GameVarModel temp = new GameVarModel();
-        //        temp.P1Present = "1";
-        //        _db.ChangeAmountOfPlayers(temp, "1");
-        //    }
-        //    else if (tc.GameVars[0].P2Present == "0" && !pickedmyplayerspot)
-        //    {
-        //        WhatPlayerAmI = "2";
-        //        HowManyPlayersInLobby = "2";
-        //        pickedmyplayerspot = true;
-        //        GameVarModel temp = new GameVarModel();
-        //        temp.P2Present = "1";
-        //        _db.ChangeAmountOfPlayers(temp, "2");
-        //    }
-        //    else if (tc.GameVars[0].P3Present == "0" && !pickedmyplayerspot)
-        //    {
-        //        WhatPlayerAmI = "3";
-        //        HowManyPlayersInLobby = "3";
-        //        pickedmyplayerspot = true;
-        //        GameVarModel temp = new GameVarModel();
-        //        temp.P3Present = "1";
-        //        _db.ChangeAmountOfPlayers(temp, "3");
-        //    }
-        //    else if (tc.GameVars[0].P4Present == "0" && !pickedmyplayerspot)
-        //    {
-        //        WhatPlayerAmI = "4";
-        //        HowManyPlayersInLobby = "4";
-        //        pickedmyplayerspot = true;
-        //        GameVarModel temp = new GameVarModel();
-        //        temp.P4Present = "1";
-        //        _db.ChangeAmountOfPlayers(temp, "4");
-        //    }
-        //    else if (!pickedmyplayerspot)
-        //    {
-        //        navManager.NavigateTo("/lobbyfull");
-        //    }
-        //}
+        
         
         public void Dispose()
         {

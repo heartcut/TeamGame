@@ -4,6 +4,8 @@
 
 @if (DBConnection.CheckLobby(lobnum))
 {
+    //add player to lobby in db
+    playnum = DBConnection.IJoined(lobnum);
     //code to populate the player in the db
     <GamePage MyLobbyNum="@lobnum" MyPlayerNum="@playnum" />
 }
@@ -17,7 +19,7 @@ else
 
     //to put into my game component
     int lobnum;
-    int playnum = 1;
+    int playnum;
 
     [Parameter]
     public int test { get; set; }

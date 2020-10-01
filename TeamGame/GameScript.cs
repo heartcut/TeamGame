@@ -35,7 +35,7 @@ namespace TeamGame
                 case 2:
                     if (xory == "x")
                     {
-                        return (gvm.Width / 2) + dbgvm.P2Xcords + "px";
+                        return (gvm.Width / 2) + dbgvm.P2Xcords + 50 + "px";
                     }
                     else
                     {
@@ -48,16 +48,16 @@ namespace TeamGame
                     }
                     else
                     {
-                        return (gvm.Height / 2) + dbgvm.P3Ycords + "px";
+                        return (gvm.Height / 2) + dbgvm.P3Ycords + 50 + "px";
                     }
                 case 4:
                     if (xory == "x")
                     {
-                        return (gvm.Width / 2) + dbgvm.P4Xcords + "px";
+                        return (gvm.Width / 2) + dbgvm.P4Xcords + 25 + "px";
                     }
                     else
                     {
-                        return (gvm.Height / 2) + dbgvm.P4Ycords + "px";
+                        return (gvm.Height / 2) + dbgvm.P4Ycords + 25 + "px";
                     }
                 default:
                     return "0px";
