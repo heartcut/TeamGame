@@ -15,17 +15,23 @@ namespace TeamGame.SqlAccess.GameStateModels
         
         public static DBGameVarModel GetSQL(int lobby)
         {
+
+
+
+            SqlConnection conn = new SqlConnection();
             var cs = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\source\ServerSideBlazor\DataAccessLibrary\Database1.mdf;Integrated Security=True;Connect Timeout=30";
 
             using var con = new SqlConnection(cs);
+
             con.Open();
-            //new id 3 means making a new car object with the id = to 3??
+
             DBGameVarModel GVM = new DBGameVarModel();
-            GVM = con.QueryFirst<DBGameVarModel>(@"SELECT * FROM CursorPos WHERE LobbyNumber=" + lobby);
 
-            con.Dispose();
-
+            GVM = con.QueryFirst<DBGameVarModel>(@"SELECT * FROM CursorPos WHERE LobbyNumber=" + lobby + ";");
+            // Create the command
+            // Add the parameters.
             return GVM;
+            // use the connection here
         }
 
     }

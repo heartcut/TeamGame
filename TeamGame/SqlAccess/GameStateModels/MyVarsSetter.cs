@@ -11,18 +11,21 @@ namespace TeamGame.SqlAccess.GameStateModels
     public class MyVarsSetter
     {
         //i take in my gamevarmodel that i update client side with my own vars and also take the lobbynum
-        public static void SetSQL(int lobbynum,int playernum,double myxcords,double myycords)
+        public static void SetSQL(DBGameVarModel gvm,int lobbynum,int playernum,double xcords,double ycords)
         {
             //ill use this to update the vars that i need
+            SqlConnection conn = new SqlConnection();
             var cs = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\source\ServerSideBlazor\DataAccessLibrary\Database1.mdf;Integrated Security=True;Connect Timeout=30";
-
             using var con = new SqlConnection(cs);
             con.Open();
-            con.Execute("UPDATE CursorPos SET P" +playernum+ "Xcords =" +myxcords+
-                ", SET P" +playernum+ "Ycords =" +myycords+
-                " WHERE LobbyNumber =" +lobbynum+ "; ");
+            con.ExecuteAsync("UPDATE dbo.CursorPos SET P" + playernum + "Xcords =" + xcords + ", P" + playernum +
+                "Ycords = " + ycords + " WHERE LobbyNumber =" + lobbynum + ";");
 
-            con.Dispose();
+
+
+            // use the connection here
+
+
         }
     }
 }

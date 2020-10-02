@@ -88,16 +88,17 @@ namespace TeamGame.Pages
         //onafter is only called once afterwards so i used it to update the db and not get doubles
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
-            
+            MyG.PlayerIAm = MyPlayerNum;
+            MyG.MyLobby = MyLobbyNum;
         }
-
+        
         bool is_rendered = false;
         async Task KeepRunning()
         {
             is_rendered = true;
             while (is_rendered)
             {
-                //Task.Delay(1000);
+                //Task.Delay(1);
                 if (is_rendered)
                 {
                     //js the three below
@@ -107,7 +108,7 @@ namespace TeamGame.Pages
                     MyDBVars = MyVarsGetter.GetSQL(MyLobbyNum);
                     //only passing in x and y cords for mouse right now because its cleaner code there
                     //will probably need to change as i upscale the vars pass who knows :)
-                    MyVarsSetter.SetSQL(MyLobbyNum,MyPlayerNum,MyG.mycursx,MyG.mycursy);
+                    MyVarsSetter.SetSQL(MyDBVars,MyLobbyNum,MyPlayerNum,MyG.mycursx,MyG.mycursy);
 
                     
                     //need to put the setting and getting vars here to update constantly

@@ -19,6 +19,7 @@ namespace TeamGame
 
     public class GameScript
     {
+        
         public static string GetPlayerMouse(GameVarModel gvm,DBGameVarModel dbgvm ,int whichplayer,string xory)
         {
             switch (whichplayer)
@@ -26,38 +27,38 @@ namespace TeamGame
                 case 1:
                     if (xory == "x")
                     {
-                        return (gvm.Width / 2) + dbgvm.P1Xcords +50+ "px";
+                        return (gvm.Width / 2) + dbgvm.P1Xcords+ "px";
                     }
                     else
                     {
-                        return (gvm.Height / 2) + dbgvm.P1Ycords +50+ "px";
+                        return (gvm.Height / 2) + dbgvm.P1Ycords + "px";
                     }
                 case 2:
                     if (xory == "x")
                     {
-                        return (gvm.Width / 2) + dbgvm.P2Xcords + 50 + "px";
+                        return ((gvm.Width / 2) + dbgvm.P2Xcords).ToString() + "px";
                     }
                     else
                     {
-                        return (gvm.Height / 2) + dbgvm.P2Ycords + "px";
+                        return ((gvm.Height / 2) + dbgvm.P2Ycords).ToString() + "px";
                     }
                 case 3:
                     if (xory == "x")
                     {
-                        return (gvm.Width / 2) + dbgvm.P3Xcords + "px";
+                        return ((gvm.Width / 2) + dbgvm.P3Xcords).ToString() + "px";
                     }
                     else
                     {
-                        return (gvm.Height / 2) + dbgvm.P3Ycords + 50 + "px";
+                        return ((gvm.Height / 2) + dbgvm.P3Ycords).ToString() + "px";
                     }
                 case 4:
                     if (xory == "x")
                     {
-                        return (gvm.Width / 2) + dbgvm.P4Xcords + 25 + "px";
+                        return ((gvm.Width / 2) + dbgvm.P4Xcords).ToString() + "px";
                     }
                     else
                     {
-                        return (gvm.Height / 2) + dbgvm.P4Ycords + 25 + "px";
+                        return ((gvm.Height / 2) + dbgvm.P4Ycords).ToString() + "px";
                     }
                 default:
                     return "0px";
