@@ -76,7 +76,7 @@ namespace TeamGame.MinigameComps
         protected override async Task OnInitializedAsync()
         {
             PickColorNums();
-            await MemorizeStopWatch();
+            MemorizeStopWatch();
             PickQ();
             PickAnswers();
         }

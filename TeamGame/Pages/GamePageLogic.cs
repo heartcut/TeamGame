@@ -45,10 +45,40 @@ namespace TeamGame.Pages
 
         RenderFragment dynamicComponent(DBGameVarModel gvm , int a) => builder =>
         {
+
+            if (a == 1)
+            {
+                //is player one
+                if (gvm.P1Game == 1)
+                {
+                    //is the sixninegame
+                    builder.OpenComponent(0, typeof(SixNineGame));
+                    builder.CloseComponent();
+                }
+                else if (gvm.P1Game == 2)
+                {
+                    //render the other game
+                    builder.OpenComponent(0, typeof(MakeSquare));
+                    builder.CloseComponent();
+                }
+                else if (gvm.P1Game == 3)
+                {
+                    //render the other game
+                    builder.OpenComponent(0, typeof(MemorizeColorNumber));
+                    builder.CloseComponent();
+                }
+                else if (gvm.P1Game == null)
+                {
+                    //render the other game
+                    builder.OpenComponent(0, typeof(SixNineGame));
+                    builder.CloseComponent();
+                }
+            }
+
             if (a == 4)
             {
                 //is player four
-                if (gvm.P4Game == "sng")
+                if (gvm.P4Game == 1)
                 {
                     //is the sixninegame
                     builder.OpenComponent(0, typeof(SixNineGame));
@@ -61,22 +91,7 @@ namespace TeamGame.Pages
                     builder.CloseComponent();
                 }
             }
-            if (a == 1)
-            {
-                //is player one
-                if (gvm.P1Game == "sng")
-                {
-                    //is the sixninegame
-                    builder.OpenComponent(0, typeof(SixNineGame));
-                    builder.CloseComponent();
-                }
-                else if (gvm.P1Game == null)
-                {
-                    //render the other game
-                    builder.OpenComponent(0, typeof(SixNineGame));
-                    builder.CloseComponent();
-                }
-            }
+            
         };
         int choosegame = 1;
         void ChooseAGame(int a)
@@ -106,13 +121,10 @@ namespace TeamGame.Pages
                     MyG.Height = dimension.Height;
                     MyG.Width = dimension.Width;
                     MyDBVars = MyVarsGetter.GetSQL(MyLobbyNum);
-                    //only passing in x and y cords for mouse right now because its cleaner code there
-                    //will probably need to change as i upscale the vars pass who knows :)
-                    MyVarsSetter.SetSQL(MyDBVars,MyLobbyNum,MyPlayerNum,MyG.mycursx,MyG.mycursy);
+                    MyG.MyCurrentGame = choosegame;
+                    MyVarsSetter.SetSQL(MyDBVars,MyLobbyNum,MyPlayerNum,MyG);
 
                     
-                    //need to put the setting and getting vars here to update constantly
-                    //could also put the mouse stuff in whatever i call to update
                     StateHasChanged();
                 }
             }

@@ -29,7 +29,9 @@ namespace TeamGame.SqlAccess.GameStateModels
             mycursx = e.ClientX - (Width / 2);
             mycursy = e.ClientY - (Height / 2);
         }
-        public string MyCurrentGame = "my game here";
+        //vars i will need to push in the future
+        public int MyCurrentGame = 1;
+        public int MyGameVars;
 
     }
 }  

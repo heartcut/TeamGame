@@ -19,7 +19,8 @@ namespace TeamGame
 
     public class GameScript
     {
-        
+
+        //this is used to return coordinates for the html DIV mouse cursor for each player
         public static string GetPlayerMouse(GameVarModel gvm,DBGameVarModel dbgvm ,int whichplayer,string xory)
         {
             switch (whichplayer)
@@ -107,21 +108,7 @@ namespace TeamGame
         public static int play3hp = 7;
         public static int play4hp = 11;
 
-        public static string Coordinates { get; set; }
-        //public static double cursx { get; set; }
-        //public static double cursy { get; set; }
-        //public static double cursxx { get; set; }
-        //public static double cursyy { get; set; }
-
-
-        //public static void Player1MouseMoved(MouseEventArgs e)
-        //{
-        //    //this sets curs to the coords around the center bascially
-        //    cursx = e.ClientX-(GamePage.Width/2);
-        //    cursy = e.ClientY-(GamePage.Height/2);
-        //    cursxx = e.ClientX;
-        //    cursyy = e.ClientY;
-        //}
+        
     }
 
 

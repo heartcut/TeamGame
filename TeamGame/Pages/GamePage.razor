@@ -29,7 +29,7 @@
                         <MemorizeColorNumber />
                     }
                 </div>
-                <div class="player1health">
+                <div class="playerhealth">
                     <!--i use the at ref to reference my other component to communicate acrros them-->
                     <!--yea not too sure how it works yet but hey-->
                     <Player1HealthBar myhealth="MyDBVars.P1Health" />
@@ -38,24 +38,20 @@
             </player1window>
             <player2window>
                 <div class="playergame">???????????????</div>
-                <div class="player1health">
+                <div class="playerhealth">
                     <Player2HealthBar myhealth="MyDBVars.P2Health" />
                 </div>
             </player2window>
             <player3window>
                 @*this is how you load components dynamicallys*@
                 @*will need to set it up to put in a var for a player and it returns the right game*@
-                @dynamicComponent(MyDBVars, 4)
-                <div class="player1health">
+                @dynamicComponent(MyDBVars, 1)
+                <div class="playerhealth">
                     <Player3HealthBar myhealth="MyDBVars.P3Health" />
                 </div>
             </player3window>
             <player4window>
-                @if (MyDBVars.P4Game == "sng")
-                {
-                    <SixNineGame />
-                }
-                <div class="player1health">
+                <div class="playerhealth">
                     <Player4HealthBar myhealth="MyDBVars.P4Health" />
                 </div>
             </player4window>
@@ -63,7 +59,6 @@
     </div>
 
     <div class="testbuttons">
-        <button @onclick="(() => ChooseAGame(0))">team play?</button>
         <button @onclick="(() => ChooseAGame(1))">sixninegame?</button>
         <button @onclick="(() => ChooseAGame(2))">makeasuqre?</button>
         <button @onclick="(() => ChooseAGame(3))">mem colornum</button>
@@ -75,9 +70,9 @@
         <a style="color:yellow;">@MyG.Width</a>
         @*this is the players in lobby*@
         @*<a style="color:white;">the amount of players in the lobby is:</a>
-            <a style="color:white;">@HowManyPlayersInLobby</a>
-            <a style="color:white;">you are player:</a>
-            <a style="color:white;">@WhatPlayerAmI</a>*@
+        <a style="color:white;">@HowManyPlayersInLobby</a>
+        <a style="color:white;">you are player:</a>
+        <a style="color:white;">@WhatPlayerAmI</a>*@
         <br />
 
 
@@ -104,7 +99,8 @@
             <a style="color:white;">@MyDBVars.P4Health</a>
             <a style="color:red;">what is my game?: </a>
             <a style="color:white;">@MyG.MyCurrentGame</a>
-
+            <a style="color:red;">what is my db game?: </a>
+            <a style="color:white;">@MyDBVars.P1Game</a>
 
 
 
