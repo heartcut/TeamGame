@@ -45,71 +45,26 @@ namespace TeamGame.Pages
             KeepRunning();
 
         }
-
-        RenderFragment dynamicComponent(DBGameVarModel gvm , int a) => builder =>
-        {
-
-            if (a == 1)
-            {
-                //is player one
-                if (gvm.P1Game == 1)
-                {
-                    //is the sixninegame
-                    builder.OpenComponent(0, typeof(SixNineGame));
-                    builder.CloseComponent();
-                }
-                else if (gvm.P1Game == 2)
-                {
-                    //render the other game
-                    builder.OpenComponent(0, typeof(MakeSquare));
-                    builder.CloseComponent();
-                }
-                else if (gvm.P1Game == 3)
-                {
-                    //render the other game
-                    builder.OpenComponent(0, typeof(MemorizeColorNumber));
-                    builder.CloseComponent();
-                }
-                else if (gvm.P1Game == null)
-                {
-                    //render the other game
-                    builder.OpenComponent(0, typeof(SixNineGame));
-                    builder.CloseComponent();
-                }
-            }
-
-            if (a == 4)
-            {
-                //is player four
-                if (gvm.P4Game == 1)
-                {
-                    //is the sixninegame
-                    builder.OpenComponent(0, typeof(SixNineGame));
-                    builder.CloseComponent();
-                }
-                else if (gvm.P4Game == null)
-                {
-                    //render the other game
-                    builder.OpenComponent(0, typeof(SixNineGame));
-                    builder.CloseComponent();
-                }
-            }
-            
-        };
         int choosegame = 1;
         void ChooseAGame(int a)
         {
             choosegame = a;
         }
-
         //oninitizlized async is called twice with server and component render
         //onafter is only called once afterwards so i used it to update the db and not get doubles
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
             MyG.PlayerIAm = MyPlayerNum;
             MyG.MyLobby = MyLobbyNum;
+            StartLoadScreen();
         }
-        
+        bool loadingdone = false;
+        private async Task StartLoadScreen()
+        {
+            await Task.Delay(5000);
+            loadingdone = true;
+        }
+
         bool is_rendered = false;
         async Task KeepRunning()
         {

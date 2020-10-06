@@ -2,7 +2,14 @@
 <div class="mainwindow" @onmousemove="MyG.MouseMoved">
     <PlayerCursors MyG="MyG" MyDBVars="MyDBVars" MyLobbyNum="MyLobbyNum" MyPlayerNum="MyPlayerNum" />
     <div class="gamewindow">
+        @if (!loadingdone)
+        {
+            <LoadingTest></LoadingTest>
+        }
+        else
+        {
         <PlayerGameWindows MyG="MyG" MyDBVars="MyDBVars" MyLobbyNum="MyLobbyNum" MyPlayerNum="MyPlayerNum" choosegame="choosegame" />
+        }
     </div>
     <div class="testbuttons">
         <button @onclick="(() => ChooseAGame(1))">sixninegame?</button>

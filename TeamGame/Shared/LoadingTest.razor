@@ -1,0 +1,22 @@
+﻿@if (isLoaded)
+{
+    @ChildContent
+}
+else
+{
+    <div style="color:white;text-align: center;font-size:100px;">WELCOME TO THE GAME</div>
+    <div style="color:white;text-align: center;font-size:75px;">I NEED A ANIMATION HERE</div>
+}
+
+@code {
+    bool isLoaded;
+
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await Task.Delay(4000); // TODO actual initialization job
+        isLoaded = true;
+    }
+}
