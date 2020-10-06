@@ -10,7 +10,10 @@ using TeamGame.SqlAccess.GameStateModels;
 using TeamGame.PlayerHealthBar;
 using Microsoft.AspNetCore.Components;
 using TeamGame.MinigameComps;
-
+using TeamGame.GamePageComps;
+using TeamGame.Pages;
+using TeamGame.Shared;
+using System.Reflection.Metadata;
 
 namespace TeamGame.Pages
 {

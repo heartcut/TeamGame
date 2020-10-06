@@ -1,0 +1,33 @@
+﻿
+@if (MyPlayerNum != 1)
+{
+    <img src="/media/bcurs.png" style="position: absolute;top:@GameScript.GetPlayerMouse(MyG,MyDBVars,1,"y");left:@GameScript.GetPlayerMouse(MyG,MyDBVars,1,"x");z-index:3;">
+
+}
+@if (MyPlayerNum != 2)
+{
+    <img src="/media/rcurs.png" style="position: absolute;top:@GameScript.GetPlayerMouse(MyG,MyDBVars,2,"y");left:@GameScript.GetPlayerMouse(MyG,MyDBVars,2,"x");z-index:3;">
+
+}
+@if (MyPlayerNum != 3)
+{
+    <img src="/media/gcurs.png" style="position: absolute;top:@GameScript.GetPlayerMouse(MyG,MyDBVars,3,"y");left:@GameScript.GetPlayerMouse(MyG,MyDBVars,3,"x");z-index:3;">
+
+}
+@if (MyPlayerNum != 4)
+{
+    <img src="/media/ycurs.png" style="position: absolute;top:@GameScript.GetPlayerMouse(MyG,MyDBVars,4,"y");left:@GameScript.GetPlayerMouse(MyG,MyDBVars,4,"x");z-index:3;">
+
+}
+
+
+@code {
+    [Parameter]
+    public GameVarModel MyG { get; set; }
+    [Parameter]
+    public DBGameVarModel MyDBVars { get; set; }
+    [Parameter]
+    public int MyLobbyNum { get; set; }
+    [Parameter]
+    public int MyPlayerNum { get; set; }
+}

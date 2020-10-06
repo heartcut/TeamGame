@@ -1,6 +1,4 @@
-﻿
-
-.playergame {
+﻿.playergame {
     
     display: block;
     margin-left: auto;
@@ -9,8 +7,7 @@
     margin-bottom:auto;
     color:white;
 }
-
-player1window {
+.player1window {
     position: absolute;
     width: 49.5%;
     height: 49%;
@@ -19,8 +16,7 @@ player1window {
     border: 2px solid grey;
     cursor: url(/media/bcurs.png) -2 -2,auto;
 }
-
-player2window {
+.player2window {
     position: absolute;
     width: 49.5%;
     height: 49%;
@@ -30,8 +26,7 @@ player2window {
     cursor: url(/media/rcurs.png) -2 -2,auto;
     color:white;
 }
-
-player3window {
+.player3window {
     position: absolute;
     width: 49.5%;
     height: 49%;
@@ -41,7 +36,7 @@ player3window {
     cursor: url(/media/gcurs.png) -2 -2,auto;
     color: white;
 }
-player4window {
+.player4window {
     position: absolute;
     width: 49.5%;
     height: 49%;
@@ -51,8 +46,6 @@ player4window {
     cursor: url(/media/ycurs.png) -2 -2,auto;
     color: white;
 }
-
-
 .playerhealth{
 
     position:absolute;

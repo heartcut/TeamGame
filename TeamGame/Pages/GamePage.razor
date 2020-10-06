@@ -1,63 +1,9 @@
 ﻿@implements IDisposable
-
 <div class="mainwindow" @onmousemove="MyG.MouseMoved">
-    <img src="/media/rainbowcurse.png" style="position: absolute;top:@GameScript.GetPlayerMouse(MyG,MyDBVars,1,"y");left:@GameScript.GetPlayerMouse(MyG,MyDBVars,1,"x");z-index:3;">
-    <img src="/media/bcurs.png" style="position: absolute;top:@GameScript.GetPlayerMouse(MyG,MyDBVars,2,"y");left:@GameScript.GetPlayerMouse(MyG,MyDBVars,2,"x");z-index:3;">
-    <img src="/media/rcurs.png" style="position: absolute;top:@GameScript.GetPlayerMouse(MyG,MyDBVars,3,"y");left:@GameScript.GetPlayerMouse(MyG,MyDBVars,3,"x");z-index:3;">
-    <img src="/media/ycurs.png" style="position: absolute;top:@GameScript.GetPlayerMouse(MyG,MyDBVars,4,"y");left:@GameScript.GetPlayerMouse(MyG,MyDBVars,4,"x");z-index:3;">
-
-    <div class="gamewindow" >
-        @if (choosegame == 0)
-        {
-            <TeamNumberGame />
-        }
-        @if (choosegame != 0)
-        {
-            <player1window>
-                <div class="playergame">
-                    <!--lmao i love it-->
-                    @if (choosegame == 1)
-                    {
-                        <SixNineGame />
-                    }
-                    @if (choosegame == 2)
-                    {
-                        <MakeSquare />
-                    }
-                    @if (choosegame == 3)
-                    {
-                        <MemorizeColorNumber />
-                    }
-                </div>
-                <div class="playerhealth">
-                    <!--i use the at ref to reference my other component to communicate acrros them-->
-                    <!--yea not too sure how it works yet but hey-->
-                    <Player1HealthBar myhealth="MyDBVars.P1Health" />
-
-                </div>
-            </player1window>
-            <player2window>
-                <div class="playergame">???????????????</div>
-                <div class="playerhealth">
-                    <Player2HealthBar myhealth="MyDBVars.P2Health" />
-                </div>
-            </player2window>
-            <player3window>
-                @*this is how you load components dynamicallys*@
-                @*will need to set it up to put in a var for a player and it returns the right game*@
-                @dynamicComponent(MyDBVars, 1)
-                <div class="playerhealth">
-                    <Player3HealthBar myhealth="MyDBVars.P3Health" />
-                </div>
-            </player3window>
-            <player4window>
-                <div class="playerhealth">
-                    <Player4HealthBar myhealth="MyDBVars.P4Health" />
-                </div>
-            </player4window>
-        }
+    <PlayerCursors MyG="MyG" MyDBVars="MyDBVars" MyLobbyNum="MyLobbyNum" MyPlayerNum="MyPlayerNum" />
+    <div class="gamewindow">
+        <PlayerGameWindows MyG="MyG" MyDBVars="MyDBVars" MyLobbyNum="MyLobbyNum" MyPlayerNum="MyPlayerNum" choosegame="choosegame" />
     </div>
-
     <div class="testbuttons">
         <button @onclick="(() => ChooseAGame(1))">sixninegame?</button>
         <button @onclick="(() => ChooseAGame(2))">makeasuqre?</button>
@@ -70,12 +16,10 @@
         <a style="color:yellow;">@MyG.Width</a>
         @*this is the players in lobby*@
         @*<a style="color:white;">the amount of players in the lobby is:</a>
-        <a style="color:white;">@HowManyPlayersInLobby</a>
-        <a style="color:white;">you are player:</a>
-        <a style="color:white;">@WhatPlayerAmI</a>*@
+            <a style="color:white;">@HowManyPlayersInLobby</a>
+            <a style="color:white;">you are player:</a>
+            <a style="color:white;">@WhatPlayerAmI</a>*@
         <br />
-
-
         @if (MyG is null)
         {
             <a style="color:white;">loading coordinates</a>
@@ -101,9 +45,6 @@
             <a style="color:white;">@MyG.MyCurrentGame</a>
             <a style="color:red;">what is my db game?: </a>
             <a style="color:white;">@MyDBVars.P1Game</a>
-
-
-
         }
     </div>
     <div class="names">
@@ -115,7 +56,5 @@
     <div class="timer"><strong>@stopwatchvalue</strong></div>
 </div>
 @code{
-    
     //TeamGame.Pages.GamePageLogic
-
 }

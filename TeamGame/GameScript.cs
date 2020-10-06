@@ -19,7 +19,11 @@ namespace TeamGame
 
     public class GameScript
     {
-
+        //need to change these
+        public static int play1hp = 7;
+        public static int play2hp = 7;
+        public static int play3hp = 7;
+        public static int play4hp = 11;
         //this is used to return coordinates for the html DIV mouse cursor for each player
         public static string GetPlayerMouse(GameVarModel gvm,DBGameVarModel dbgvm ,int whichplayer,string xory)
         {
@@ -65,10 +69,6 @@ namespace TeamGame
                     return "0px";
             }
         }
-        public static int play1hp = 7;
-        public static int play2hp = 7;
-        public static int play3hp = 7;
-        public static int play4hp = 11;
     }
 }
 
