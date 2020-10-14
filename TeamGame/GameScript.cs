@@ -24,6 +24,31 @@ namespace TeamGame
         public static int play2hp = 7;
         public static int play3hp = 7;
         public static int play4hp = 11;
+        public static int[] GetPlayerGameAndVars()
+        {
+            Random rmd = new Random();
+            //next returns 1,2, or 3
+            //1 -sixnine/2-makeasquare/3-memcolornum
+            //int whatgame = rmd.Next(1, 4);
+            int[] myarr = new int[3];
+            int whatgame = 1;
+            if (whatgame == 1)
+            {
+                int[] GameVars = SixNineGame.RandomSixesV2();
+                myarr= GameVars;
+            }
+            else if (whatgame == 2)
+            {
+                //makeasquare
+            }
+            else if (whatgame == 3)
+            {
+                //mem colornum
+            }
+            //i will hold which game and the variables that go with it here
+            
+            return myarr;
+        }
         //this is used to return coordinates for the html DIV mouse cursor for each player
         public static string GetPlayerMouse(GameVarModel gvm,DBGameVarModel dbgvm ,int whichplayer,string xory)
         {

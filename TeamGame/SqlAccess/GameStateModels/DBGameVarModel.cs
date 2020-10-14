@@ -13,9 +13,17 @@ namespace TeamGame.SqlAccess.GameStateModels
         public int PlayersInLobby { get; set; }
 
         public int P1Game { get; set; }
+        public int P1GameVar1 { get; set; }
+        public int P1GameVar2 { get; set; }
         public int P2Game { get; set; }
+        public int P2GameVar1 { get; set; }
+        public int P2GameVar2 { get; set; }
         public int P3Game { get; set; }
+        public int P3GameVar1 { get; set; }
+        public int P3GameVar2 { get; set; }
         public int P4Game { get; set; }
+        public int P4GameVar1 { get; set; }
+        public int P4GameVar2 { get; set; }
 
         public double P1Xcords { get; set; }
         public double P1Ycords { get; set; }

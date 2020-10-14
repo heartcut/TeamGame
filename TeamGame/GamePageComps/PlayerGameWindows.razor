@@ -1,66 +1,68 @@
-﻿@using System;
-@using System.Collections.Generic;
-@using System.Linq;
-@using System.Threading.Tasks;
+﻿@using System
+@using System.Collections.Generic
+@using System.Linq
+@using System.Threading.Tasks
 @*for the js*@
-@using TeamGame.JavaScript;
-@using TeamGame;
-@using TeamGame.SqlAccess;
-@using TeamGame.SqlAccess.GameStateModels;
-@using TeamGame.PlayerHealthBar;
-@using TeamGame.Pages;
-@using Microsoft.AspNetCore.Components;
-@using TeamGame.MinigameComps;
-@using TeamGame.GamePageComps;
+@using TeamGame.JavaScript
+@using TeamGame
+@using TeamGame.SqlAccess
+@using TeamGame.SqlAccess.GameStateModels
+@using TeamGame.PlayerHealthBar
+@using TeamGame.Pages
+@using Microsoft.AspNetCore.Components
+@using TeamGame.MinigameComps
+@using TeamGame.GamePageComps
 @using System.Globalization
 @namespace TeamGame.MinigameComps
-    @if (choosegame == 0)
-    {
-        <TeamNumberGame />
-    }
 
-    <div class="player1window">
-        <div class="playergame">
-            <!--lmao i love it-->
-            @if (choosegame == 1)
-            {
-                <SixNineGame />
-            }
-            @if (choosegame == 2)
-            {
-                <MakeSquare />
-            }
-            @if (choosegame == 3)
-            {
-                <MemorizeColorNumber />
-            }
-        </div>
-        <div class="playerhealth">
 
-            <Player1HealthBar myhealth="MyDBVars.P1Health" />
+<div class="player1window">
+    <div class="playergame">
+        <!--lmao i love it-->
+        @if (MyPlayerNum == 1)
+        {
 
-        </div>
+        }
+        else
+        {
+            @dynamicComponent(MyDBVars.P1GameVar1, MyDBVars.P1GameVar2)
+        }
+
+
     </div>
-    <div class="player2window">
-        <div class="playergame">???????????????</div>
-        <div class="playerhealth">
-            <Player2HealthBar myhealth="MyDBVars.P2Health" />
-        </div>
+    <div class="playerhealth">
+
+        <Player1HealthBar myhealth="MyDBVars.P1Health" />
+
     </div>
-    <div class="player3window">
-        @*this is how you load components dynamicallys*@
-        @*will need to set it up to put in a var for a player and it returns the right game*@
-        @dynamicComponent(MyDBVars, 1)
-        <div class="playerhealth">
-            <Player3HealthBar myhealth="MyDBVars.P3Health" />
-        </div>
+</div>
+<div class="player2window">
+    <div class="playergame">
+
+            @dynamicComponent(MyDBVars.P2GameVar1, MyDBVars.P2GameVar2)
+        
     </div>
-    <div class="player4window">
-        <div class="playerhealth">
-            <Player4HealthBar myhealth="MyDBVars.P4Health" />
-        </div>
+    <div class="playerhealth">
+        <Player2HealthBar myhealth="MyDBVars.P2Health" />
     </div>
+</div>
+<div class="player3window">
+    @*this is how you load components dynamicallys*@
+    @*will need to set it up to put in a var for a player and it returns the right game*@
+    @*@dynamicComponent(MyDBVars, 3)*@
+    <div class="playerhealth">
+        <Player3HealthBar myhealth="MyDBVars.P3Health" />
+    </div>
+</div>
+<div class="player4window">
+    <a style="color:white;">@MyDBVars.P1Xcords</a>
+    <a style="color:white;">@MyDBVars.P1Ycords</a>
+    <div class="playerhealth">
+        <Player4HealthBar myhealth="MyDBVars.P4Health" />
+    </div>
+</div>
 @code {
+
     [Parameter]
     public GameVarModel MyG { get; set; }
     [Parameter]
@@ -69,61 +71,16 @@
     public int MyLobbyNum { get; set; }
     [Parameter]
     public int MyPlayerNum { get; set; }
-    [Parameter]
-    public int choosegame { get; set; }
-    void ChooseAGame(int a)
-    {
-        choosegame = a;
-    }
-
-    RenderFragment dynamicComponent(DBGameVarModel gvm, int a) => builder =>
+    
+    RenderFragment dynamicComponent(int var1, int var2) => builder =>
     {
 
-        if (a == 1)
-        {
-        //is player one
-        if (gvm.P1Game == 1)
-            {
-            //is the sixninegame
-            builder.OpenComponent(0, typeof(SixNineGame));
-                builder.CloseComponent();
-            }
-            else if (gvm.P1Game == 2)
-            {
-            //render the other game
-            builder.OpenComponent(0, typeof(MakeSquare));
-                builder.CloseComponent();
-            }
-            else if (gvm.P1Game == 3)
-            {
-            //render the other game
-            builder.OpenComponent(0, typeof(MemorizeColorNumber));
-                builder.CloseComponent();
-            }
-            else if (gvm.P1Game == null)
-            {
-            //render the other game
-            builder.OpenComponent(0, typeof(SixNineGame));
-                builder.CloseComponent();
-            }
-        }
+        builder.OpenComponent(0, typeof(SixNineGame));
+        builder.AddAttribute(1, "firstanswer", var1);
+        builder.AddAttribute(2, "secondanswer", var2);
+        builder.CloseComponent();
 
-        if (a == 4)
-        {
-        //is player four
-        if (gvm.P4Game == 1)
-            {
-            //is the sixninegame
-            builder.OpenComponent(0, typeof(SixNineGame));
-                builder.CloseComponent();
-            }
-            else if (gvm.P4Game == null)
-            {
-            //render the other game
-            builder.OpenComponent(0, typeof(SixNineGame));
-                builder.CloseComponent();
-            }
-        }
 
     };
+
 }

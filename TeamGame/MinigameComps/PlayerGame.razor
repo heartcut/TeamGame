@@ -1,0 +1,61 @@
+﻿
+
+@if (Vars is null){
+    @dynamicComponentt();
+}
+else
+{
+    @dynamicComponent();
+}
+
+
+@code {
+    [Parameter]
+    public int lobby { get; set; }
+    [Parameter]
+    public int player { get; set; }
+    [Parameter]
+    public int Var1 { get; set; }
+    [Parameter]
+    public int Var2 { get; set; }
+    [Parameter]
+    public int[] Vars { get; set; }
+    [Parameter]
+    public DBGameVarModel dbgvm { get; set; }
+
+    int[] thegame;
+    //oninitizlized async is called twice with server and component render
+    //onafter is only called once afterwards so i used it to update the db and not get doubles
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        GetVars();
+        StateHasChanged();
+    }
+    public void GetVars()
+    {
+        MyVarsSetter.SetGameVarSQL(lobby, player, Vars);
+    }
+
+    RenderFragment dynamicComponent() => builder =>
+    {
+
+        builder.OpenComponent(0, typeof(SixNineGame));
+        builder.AddAttribute(1, "FirstAnswer",  Vars[1]);
+        builder.AddAttribute(2, "SecondAnswer", Vars[2]);
+        builder.CloseComponent();
+
+
+    };
+    RenderFragment dynamicComponentt() => builder =>
+    {
+
+        builder.OpenComponent(0, typeof(SixNineGame));
+        builder.AddAttribute(1, "FirstAnswer", Var1);
+        builder.AddAttribute(2, "SecondAnswer", Var2);
+        builder.CloseComponent();
+
+
+    };
+
+}
+

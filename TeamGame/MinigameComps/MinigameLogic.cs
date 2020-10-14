@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Options;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,30 +13,32 @@ namespace TeamGame.MinigameComps
     //this is how to put code for component in a regular class file
     public partial class SixNineGame
     {
+        [Parameter]
+        public int FirstAnswer { get; set; }
+        [Parameter]
+        public int SecondAnswer { get; set; }
         //this is the onload overridded method
         //you can do some kind of wait stuff idk but it works for now
         protected override void OnInitialized()
         {
-            RandomSixes();
+            //below is what i will use to get my game and vars
+            sna[FirstAnswer] = "6";
+            sna[SecondAnswer] = "6";
         }
-        int numof6 = 0;
-        public string[,] sna = new string[4, 8]
-            {
-            {"9","9","9","9","9","9","9","9"},
-            {"9","9","9","9","9","9","9","9"},
-            {"9","9","9","9","9","9","9","9"},
-            {"9","9","9","9","9","9","9","9"}
-            };
+        public string[] sna = new string[32]
+        {
+            "9","9","9","9","9","9","9","9",
+            "9","9","9","9","9","9","9","9",
+            "9","9","9","9","9","9","9","9",
+            "9","9","9","9","9","9","9","9"
+        };
+        
         public string status;
-        public int firstrow;
-        public int secondrow;
-        public int firstcol;
-        public int secondcol;
         public int rightanswer = 0;
         public int wronganswer = 0;
-        public void IsSix(int a, int b)
+        public void IsSix(int a)
         {
-            if ((a == firstrow && b == firstcol) || (a == secondrow && b == secondcol))
+            if (sna[a] == "6")
             {
                 if (rightanswer == 1)
                 {
@@ -52,19 +56,18 @@ namespace TeamGame.MinigameComps
                 status = wronganswer + " wronganswer" + rightanswer + " right answer";
             }
         }
-        public void RandomSixes()
+        public static int[] RandomSixesV2()
         {
             Random rnd = new Random();
-            if (numof6 < 2)
-            {
-                firstrow = rnd.Next(3);
-                secondrow = rnd.Next(3);
-                firstcol = rnd.Next(7);
-                secondcol = rnd.Next(7);
-                sna[firstrow, firstcol] = "6";
-                sna[secondrow, secondcol] = "6";
-                numof6 = 2;
-            }
+            int[] wheresixes = new int[3];
+            int first = rnd.Next(32);
+            int second = rnd.Next(32);
+            wheresixes[0] = 1;
+            wheresixes[1] = first;
+            wheresixes[2] = second;
+            return wheresixes;
+
+            
         }
     }
 
@@ -75,6 +78,9 @@ namespace TeamGame.MinigameComps
         //you can do some kind of wait stuff idk but it works for now
         protected override async Task OnInitializedAsync()
         {
+            //below is what i will use to get my game and vars
+            GameScript.GetPlayerGameAndVars();
+            //get rid of the below
             PickColorNums();
             MemorizeStopWatch();
             PickQ();

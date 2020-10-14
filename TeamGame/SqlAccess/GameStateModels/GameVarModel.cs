@@ -31,7 +31,7 @@ namespace TeamGame.SqlAccess.GameStateModels
         }
         //vars i will need to push in the future
         public int MyCurrentGame = 1;
-        public int MyGameVars;
+        public int[] MyGameVars;
 
     }
 }  

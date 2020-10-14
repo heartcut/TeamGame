@@ -40,15 +40,10 @@ namespace TeamGame.Pages
         {
 
             MyDBVars = MyVarsGetter.GetSQL(MyLobbyNum);
-
+            MyG.MyGameVars = GameScript.GetPlayerGameAndVars();
             StopWatch();
             KeepRunning();
 
-        }
-        int choosegame = 1;
-        void ChooseAGame(int a)
-        {
-            choosegame = a;
         }
         //oninitizlized async is called twice with server and component render
         //onafter is only called once afterwards so i used it to update the db and not get doubles
@@ -58,14 +53,17 @@ namespace TeamGame.Pages
             MyG.MyLobby = MyLobbyNum;
             StartLoadScreen();
         }
+
         bool loadingdone = false;
         private async Task StartLoadScreen()
         {
-            await Task.Delay(5000);
+            //change this to wait longer
+            await Task.Delay(5);
             loadingdone = true;
         }
 
         bool is_rendered = false;
+        
         async Task KeepRunning()
         {
             is_rendered = true;
@@ -79,8 +77,11 @@ namespace TeamGame.Pages
                     MyG.Height = dimension.Height;
                     MyG.Width = dimension.Width;
                     MyDBVars = MyVarsGetter.GetSQL(MyLobbyNum);
-                    MyG.MyCurrentGame = choosegame;
+                    
+
                     MyVarsSetter.SetSQL(MyDBVars,MyLobbyNum,MyPlayerNum,MyG);
+                    
+                    MyVarsSetter.SetGameVarSQL(MyLobbyNum, MyPlayerNum, MyG.MyGameVars);
 
                     
                     StateHasChanged();
