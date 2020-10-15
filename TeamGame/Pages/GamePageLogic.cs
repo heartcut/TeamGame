@@ -14,6 +14,7 @@ using TeamGame.GamePageComps;
 using TeamGame.Pages;
 using TeamGame.Shared;
 using System.Reflection.Metadata;
+using System.Reflection;
 
 namespace TeamGame.Pages
 {
@@ -40,7 +41,6 @@ namespace TeamGame.Pages
         {
 
             MyDBVars = MyVarsGetter.GetSQL(MyLobbyNum);
-            MyG.MyGameVars = GameScript.GetPlayerGameAndVars();
             StopWatch();
             KeepRunning();
 
@@ -53,6 +53,14 @@ namespace TeamGame.Pages
             MyG.MyLobby = MyLobbyNum;
             StartLoadScreen();
         }
+        //planning on using this to control game state of
+        //waiting for players or doing the team game 
+        //right now its bool only for starting the games from waiting
+        bool GameStart = false;
+
+
+
+
 
         bool loadingdone = false;
         private async Task StartLoadScreen()
@@ -77,12 +85,12 @@ namespace TeamGame.Pages
                     MyG.Height = dimension.Height;
                     MyG.Width = dimension.Width;
                     MyDBVars = MyVarsGetter.GetSQL(MyLobbyNum);
-                    
+                    if (GameStart == false && MyDBVars.PlayersInLobby == 4)
+                    {
+                        GameStart = true;
+                    }
 
                     MyVarsSetter.SetSQL(MyDBVars,MyLobbyNum,MyPlayerNum,MyG);
-                    
-                    MyVarsSetter.SetGameVarSQL(MyLobbyNum, MyPlayerNum, MyG.MyGameVars);
-
                     
                     StateHasChanged();
                 }

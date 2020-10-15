@@ -33,7 +33,7 @@ namespace TeamGame
             int[] myarr = new int[3];
             int whatgame = 1;
             if (whatgame == 1)
-            {
+            {//the game is sixnine
                 int[] GameVars = SixNineGame.RandomSixesV2();
                 myarr= GameVars;
             }
