@@ -1,11 +1,18 @@
-﻿
-
-
-
-
+﻿@if (WhatGame == 1)
+{
+    <MakeSquare/>
+}
+@if (WhatGame == 2)
+{
+    <MemorizeColorNumber/>
+}
+@if (WhatGame == 3)
+{
+    <SixNineGame/>
+}
 
 @code {
-    
+
     [Parameter]
     public int ismine { get; set; }
     [Parameter]
@@ -14,8 +21,6 @@
     public int Var1 { get; set; }
     [Parameter]
     public int Var2 { get; set; }
-    [Parameter]
-    public int[] Vars { get; set; }
     [Parameter]
     public DBGameVarModel dbgvm { get; set; }
 
@@ -26,15 +31,5 @@
 
     }
 
-    RenderFragment dynamicComponent() => builder =>
-    {
-
-        builder.OpenComponent(0, typeof(SixNineGame));
-        builder.AddAttribute(1, "FirstAnswer",  Vars[1]);
-        builder.AddAttribute(2, "SecondAnswer", Vars[2]);
-        builder.CloseComponent();
-
-
-    };
 }
 
