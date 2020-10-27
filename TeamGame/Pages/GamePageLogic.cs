@@ -87,6 +87,7 @@ namespace TeamGame.Pages
                     MyDBVars = MyVarsGetter.GetSQL(MyLobbyNum);
                     if (GameStart == false && MyDBVars.PlayersInLobby == 4)
                     {
+                        GameScript.GenerateInitialVars();
                         GameStart = true;
                     }
 

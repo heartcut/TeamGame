@@ -24,30 +24,23 @@ namespace TeamGame
         public static int play2hp = 7;
         public static int play3hp = 7;
         public static int play4hp = 11;
-        public static int[] GetPlayerGameAndVars()
+        //sets the games and their variables for the first time when the game starts
+        //sets them in the db which i will be pulling vars for the games 
+        public static void GenerateInitialVars()
         {
-            Random rmd = new Random();
-            //next returns 1,2, or 3
-            //1 -sixnine/2-makeasquare/3-memcolornum
-            //int whatgame = rmd.Next(1, 4);
-            int[] myarr = new int[3];
-            int whatgame = 1;
-            if (whatgame == 1)
-            {//the game is sixnine
-                int[] GameVars = SixNineGame.RandomSixesV2();
-                myarr= GameVars;
-            }
-            else if (whatgame == 2)
+            Random rndm = new Random();
+            int[,] Vars = new int[4, 4];
+            for (int i = 0; i < 4; i++)
             {
-                //makeasquare
+                //ccan return 1,2,3 to pick which of the three games
+                Vars[i, 0] = rndm.Next(1, 4);
+                //store the game random numer in the array to put to the database
+                //put the variable into the generate variables which returns vars for the game
+                //depending on the game that you put in
+                //and we will do this for each player since this is the initial game generating
+                int[] mytempvars = MinigameVarGeneration.GenerateVariables(Vars[i, 0]);
+                
             }
-            else if (whatgame == 3)
-            {
-                //mem colornum
-            }
-            //i will hold which game and the variables that go with it here
-            
-            return myarr;
         }
         //this is used to return coordinates for the html DIV mouse cursor for each player
         public static string GetPlayerMouse(GameVarModel gvm,DBGameVarModel dbgvm ,int whichplayer,string xory)

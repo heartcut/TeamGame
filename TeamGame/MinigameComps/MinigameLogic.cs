@@ -78,8 +78,6 @@ namespace TeamGame.MinigameComps
         //you can do some kind of wait stuff idk but it works for now
         protected override async Task OnInitializedAsync()
         {
-            //below is what i will use to get my game and vars
-            GameScript.GetPlayerGameAndVars();
             //get rid of the below
             PickColorNums();
             MemorizeStopWatch();
