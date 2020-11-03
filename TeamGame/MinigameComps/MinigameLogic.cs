@@ -13,17 +13,14 @@ namespace TeamGame.MinigameComps
     //this is how to put code for component in a regular class file
     public partial class SixNineGame
     {
-        [Parameter]
-        public int FirstAnswer { get; set; }
-        [Parameter]
-        public int SecondAnswer { get; set; }
+        
         //this is the onload overridded method
         //you can do some kind of wait stuff idk but it works for now
         protected override void OnInitialized()
         {
             //below is what i will use to get my game and vars
-            sna[FirstAnswer] = "6";
-            sna[SecondAnswer] = "6";
+            sna[Var1] = "6";
+            sna[Var2] = "6";
         }
         public string[] sna = new string[32]
         {

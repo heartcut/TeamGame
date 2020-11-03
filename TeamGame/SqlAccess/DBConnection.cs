@@ -90,5 +90,22 @@ namespace TeamGame.SqlAccess
             con.Dispose();
 
         }
+
+        public static void SetInitialGameVars(int lobnumber,int whichgame,int[] vars,int whichplayer)
+        {
+            var cs = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\source\ServerSideBlazor\DataAccessLibrary\Database1.mdf;Integrated Security=True;Connect Timeout=30";
+
+            using var con = new SqlConnection(cs);
+            con.Open();
+            con.Execute("UPDATE CursorPos SET P"+(whichplayer+1)+"Game =" + whichgame +
+                ", P"+(whichplayer+1)+"GameVar1 = " + vars[0] +
+                ", P" + (whichplayer + 1) + "GameVar2 = " + vars[1] +
+                ", P" + (whichplayer + 1) + "GameVar3 = " + vars[2] +
+                ", P" + (whichplayer + 1) + "GameVar4 = " + vars[3] + 
+                " WHERE LobbyNumber = " + lobnumber + "; ");
+
+            con.Dispose();
+
+        }
     }
 }

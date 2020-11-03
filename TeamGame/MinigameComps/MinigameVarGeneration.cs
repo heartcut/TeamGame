@@ -16,14 +16,14 @@ namespace TeamGame.MinigameComps
             {
                 //make a squre
                 //returns one int 1111-4444 each digit representing rotation state of each quarter of the sqaure
+                //only returns 1-3 so no square starts not needing to be rotated
                 int[] temp = new int[4];
                 for(int i = 0; i < 4; i++)
                 {
-                    temp[i] = rndm.Next(1, 5);
+                    temp[i] = rndm.Next(1, 4);
                 }
                 return temp;
             }
-            ///todo i will need to store the answer i think
             else if (whatgame == 2)
             {
                 //memcolornum

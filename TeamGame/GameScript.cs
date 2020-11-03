@@ -26,20 +26,22 @@ namespace TeamGame
         public static int play4hp = 11;
         //sets the games and their variables for the first time when the game starts
         //sets them in the db which i will be pulling vars for the games 
-        public static void GenerateInitialVars()
+        public static void GenerateInitialVars(int lobby)
         {
             Random rndm = new Random();
-            int[,] Vars = new int[4, 4];
             for (int i = 0; i < 4; i++)
             {
                 //ccan return 1,2,3 to pick which of the three games
-                Vars[i, 0] = rndm.Next(1, 4);
+                int whichgame = rndm.Next(1, 4);
                 //store the game random numer in the array to put to the database
                 //put the variable into the generate variables which returns vars for the game
                 //depending on the game that you put in
                 //and we will do this for each player since this is the initial game generating
-                int[] mytempvars = MinigameVarGeneration.GenerateVariables(Vars[i, 0]);
-                
+                int[] mytempvars = MinigameVarGeneration.GenerateVariables(whichgame);
+                //i is each player in this instance
+                DBConnection.SetInitialGameVars(lobby,whichgame,mytempvars,i);
+
+
             }
         }
         //this is used to return coordinates for the html DIV mouse cursor for each player
