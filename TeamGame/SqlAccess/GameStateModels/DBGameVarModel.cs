@@ -47,7 +47,7 @@ namespace TeamGame.SqlAccess.GameStateModels
         public int P3Health { get; set; }
         public int P4Health { get; set; }
 
-
+        public int GameStarted { get; set; }
 
         public string P1Present { get; set; }
         public string P2Present { get; set; }

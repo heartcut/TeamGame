@@ -10,14 +10,14 @@
         {
             <div class="player1window">
                 <div class="playergame">
-                    @if (!GameStart)
+                    @if (MyDBVars.GameStarted==0)
                     {
                         <div style="color:springgreen;">WAITING FOR OTHER PLAYERS</div>
                         <div style="color:springgreen;">CURRENT PLAYERS: @MyDBVars.PlayersInLobby</div>
                     }
                     else
                     {
-                        <PlayerGame WhatGame="MyDBVars.P1Game"/>
+                        <PlayerGame WhatGame="MyDBVars.P1Game" dbgvm="MyDBVars" player="1"/>
                     }
                 </div>
                 <div class="playerhealth">
@@ -26,14 +26,14 @@
             </div>
             <div class="player2window">
                 <div class="playergame">
-                    @if (!GameStart)
+                    @if (MyDBVars.GameStarted == 0)
                     {
                         <div style="color:springgreen;">WAITING FOR OTHER PLAYERS</div>
                         <div style="color:springgreen;">CURRENT PLAYERS: @MyDBVars.PlayersInLobby</div>
                     }
                     else
                     {
-                        <PlayerGame WhatGame="MyDBVars.P2Game" />
+                        <PlayerGame WhatGame="MyDBVars.P2Game" dbgvm="MyDBVars" player="2"/>
                     }
                 </div>
                 <div class="playerhealth">
@@ -42,14 +42,14 @@
             </div>
             <div class="player3window">
                 <div class="playergame">
-                    @if (!GameStart)
+                    @if (MyDBVars.GameStarted == 0)
                     {
                         <div style="color:springgreen;">WAITING FOR OTHER PLAYERS</div>
                         <div style="color:springgreen;">CURRENT PLAYERS: @MyDBVars.PlayersInLobby</div>
                     }
                     else
                     {
-                        <PlayerGame WhatGame="MyDBVars.P3Game" />
+                        <PlayerGame WhatGame="MyDBVars.P3Game" dbgvm="MyDBVars" player="3"/>
                     }
                 </div>
                 <div class="playerhealth">
@@ -58,14 +58,14 @@
             </div>
             <div class="player4window">
                 <div class="playergame">
-                    @if (!GameStart)
+                    @if (MyDBVars.GameStarted == 0)
                     {
                         <div style="color:springgreen;">WAITING FOR OTHER PLAYERS</div>
                         <div style="color:springgreen;">CURRENT PLAYERS: @MyDBVars.PlayersInLobby</div>
                     }
                     else
                     {
-                        <PlayerGame WhatGame="MyDBVars.P4Game" />
+                        <PlayerGame WhatGame="MyDBVars.P4Game" dbgvm="MyDBVars" player="4"/>
                     }
                 </div>
                 <div class="playerhealth">
@@ -90,7 +90,7 @@
             <a style="color:white;">you are player:</a>
             <a style="color:white;">@WhatPlayerAmI</a>*@
         <br />
-        @if (MyG is null)
+        @if (MyG is null || MyDBVars is null)
         {
             <a style="color:white;">loading coordinates</a>
         }

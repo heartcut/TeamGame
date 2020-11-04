@@ -43,8 +43,15 @@ namespace TeamGame.Pages
             MyDBVars = MyVarsGetter.GetSQL(MyLobbyNum);
             StopWatch();
             KeepRunning();
+            if (MyPlayerNum==4)
+            {
+                //generate makes the initial vars and then sets in the db
+                GameScript.GenerateInitialVars(MyLobbyNum);
+                GameStart = true;
+            }
 
         }
+        //todo fix doubling player number when double joining on loading
         //oninitizlized async is called twice with server and component render
         //onafter is only called once afterwards so i used it to update the db and not get doubles
         protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -52,21 +59,20 @@ namespace TeamGame.Pages
             MyG.PlayerIAm = MyPlayerNum;
             MyG.MyLobby = MyLobbyNum;
             StartLoadScreen();
+
+            
+            
         }
         //planning on using this to control game state of
         //waiting for players or doing the team game 
         //right now its bool only for starting the games from waiting
         bool GameStart = false;
 
-
-
-
-
         bool loadingdone = false;
         private async Task StartLoadScreen()
         {
             //change this to wait longer
-            await Task.Delay(5);
+            await Task.Delay(500);
             loadingdone = true;
         }
 
@@ -85,12 +91,7 @@ namespace TeamGame.Pages
                     MyG.Height = dimension.Height;
                     MyG.Width = dimension.Width;
                     MyDBVars = MyVarsGetter.GetSQL(MyLobbyNum);
-                    if (GameStart == false && MyDBVars.PlayersInLobby == 4)
-                    {
-                        //generate makes the initial vars and then sets in the db
-                        GameScript.GenerateInitialVars(MyLobbyNum);
-                        GameStart = true;
-                    }
+                    
 
                     MyVarsSetter.SetSQL(MyDBVars,MyLobbyNum,MyPlayerNum,MyG);
                     
@@ -119,6 +120,7 @@ namespace TeamGame.Pages
         public void Dispose()
         {
             DBConnection.ILeft(MyLobbyNum);
+
         }
 
     }

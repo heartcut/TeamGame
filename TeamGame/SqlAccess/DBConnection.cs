@@ -85,7 +85,7 @@ namespace TeamGame.SqlAccess
             //new id 3 means making a new car object with the id = to 3??
             int players = con.QueryFirst<int>(@"SELECT PlayersInLobby FROM CursorPos WHERE LobbyNumber=" + lobnumber);
             players--;
-            con.Execute("UPDATE CursorPos SET PlayersInLobby ="+players+" WHERE LobbyNumber = " + lobnumber + "; ");
+            con.Execute("UPDATE CursorPos SET PlayersInLobby ="+players+", Set GameStarted = 0 WHERE LobbyNumber = " + lobnumber + "; ");
             
             con.Dispose();
 
@@ -101,9 +101,11 @@ namespace TeamGame.SqlAccess
                 ", P"+(whichplayer+1)+"GameVar1 = " + vars[0] +
                 ", P" + (whichplayer + 1) + "GameVar2 = " + vars[1] +
                 ", P" + (whichplayer + 1) + "GameVar3 = " + vars[2] +
-                ", P" + (whichplayer + 1) + "GameVar4 = " + vars[3] + 
+                ", P" + (whichplayer + 1) + "GameVar4 = " + vars[3] +
+                ", GameStarted = 1 " +
                 " WHERE LobbyNumber = " + lobnumber + "; ");
-
+            //todo with the game start somewhere else when disposed by a player
+            //maybe already fixed in ileft
             con.Dispose();
 
         }

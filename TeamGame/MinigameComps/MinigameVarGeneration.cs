@@ -36,18 +36,19 @@ namespace TeamGame.MinigameComps
                 //this selects a random 3 numbers ill translate into colors later
                 //and puts into first var spot
                 var list = new List<int> { 123, 234, 341, 412 };
-                temp[0] = list[rndm.Next(list.Count)];
+                temp[0] = list[rndm.Next(0,4)];
                 //below gets the 3 numbers 0-9 and puts them together by multiplying
                 //so they are in one variable in the 2nd spot
                 int[] temp1 = new int[3];
-                temp1[0] = rndm.Next(0, 10);
+                //throws an error is its not 1,10 instead of 0,10
+                temp1[0] = rndm.Next(1, 10);
                 do
                 {
-                    temp1[1] = rndm.Next(0, 10);
+                    temp1[1] = rndm.Next(1, 10);
                 } while (temp1[1] == temp1[0]);
                 do
                 {
-                    temp1[2] = rndm.Next(0, 10);
+                    temp1[2] = rndm.Next(1, 10);
                 } while (temp1[2] == temp1[0]|| temp1[2] == temp1[1]);
                 temp[1] = ((temp1[0] * 100) + (temp1[1] * 10) + temp1[2]);
                 //below i choose whether im going to ask for the number or color
@@ -100,7 +101,7 @@ namespace TeamGame.MinigameComps
             {
                 //sixninegame
                 //just needs to generate 2 random numbers between 0-31 which will be where the 6s are
-                int[] temp = new int[2];
+                int[] temp = new int[4];
                 for (int i = 0; i < 2; i++)
                 {
                     temp[i] = rndm.Next(0, 32);
