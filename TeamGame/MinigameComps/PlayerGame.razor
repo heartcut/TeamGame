@@ -1,14 +1,14 @@
 ﻿@if (WhatGame == 1)
 {
-    <MakeSquare/>
+    <MakeSquare Var1="GiveVar1(player,dbgvm)" Var2="GiveVar2(player,dbgvm)" Var3="GiveVar3(player,dbgvm)" Var4="GiveVar4(player,dbgvm)"/>
 }
 @if (WhatGame == 2)
 {
-    <MemorizeColorNumber/>
+    <MemorizeColorNumber Var1="GiveVar1(player,dbgvm)" Var2="GiveVar2(player,dbgvm)" Var3="GiveVar3(player,dbgvm)" Var4="GiveVar4(player,dbgvm)"/>
 }
 @if (WhatGame == 3)
 {
-    <SixNineGame/>
+    <SixNineGame Var1="GiveVar1(player,dbgvm)" Var2="GiveVar2(player,dbgvm)" Var3="GiveVar3(player,dbgvm)" Var4="GiveVar4(player,dbgvm)"/>
 }
 
 @code {
@@ -17,10 +17,6 @@
     public int player { get; set; }
     [Parameter]
     public int WhatGame { get; set; }
-    [Parameter]
-    public int Var1 { get; set; }
-    [Parameter]
-    public int Var2 { get; set; }
     [Parameter]
     public DBGameVarModel dbgvm { get; set; }
 
@@ -31,5 +27,49 @@
 
     }
 
+    public static int GiveVar1(int player, DBGameVarModel db)
+    {
+        switch (player)
+        {
+            case 1: return db.P1GameVar1;
+            case 2: return db.P2GameVar1;
+            case 3: return db.P3GameVar1;
+            case 4: return db.P4GameVar1;
+            default: return 1;
+        }
+    }
+    public static int GiveVar2(int player, DBGameVarModel db)
+    {
+        switch (player)
+        {
+            case 1: return db.P1GameVar2;
+            case 2: return db.P2GameVar2;
+            case 3: return db.P3GameVar2;
+            case 4: return db.P4GameVar2;
+            default: return 1;         
+        }
+    }
+    public static int GiveVar3(int player, DBGameVarModel db)
+    {
+        switch (player)
+        {
+            case 1: return db.P1GameVar3;
+            case 2: return db.P2GameVar3;
+            case 3: return db.P3GameVar3;
+            case 4: return db.P4GameVar3;
+            default: return 1;
+        }
+    }
+    public static int GiveVar4(int player, DBGameVarModel db)
+    {
+        switch (player)
+        {
+            case 1: return db.P1GameVar4;
+            case 2: return db.P2GameVar4;
+            case 3: return db.P3GameVar4;
+            case 4: return db.P4GameVar4;
+            default: return 1;
+        }
+    }
 }
 

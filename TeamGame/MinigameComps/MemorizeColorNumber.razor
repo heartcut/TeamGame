@@ -6,6 +6,7 @@
     {
     <h2 id="game-title">REmember the colours and the numbers</h2>
     <div>
+        @*todo fix this shit to convert my db vars into the right stuff*@
         <button class="memorizeelement" style=background-color:@firstcolor>@firstnumber</button>
         <button class="memorizeelement" style=background-color:@secondcolor>@secondnumber</button>
         <button class="memorizeelement" style=background-color:@thirdcolor>@thirdnumber</button>
@@ -16,7 +17,9 @@
     }
     else
     {
-        <h2>What @con was the @whichbox box?</h2>
+         @* todo*@
+        @*need to fix it so the question is here*@
+        @*<h2>What @con was the @whichbox box?</h2>*@
         <button @onclick="(() => CheckAnswer(1))">@answer1</button>
         <button @onclick="(() => CheckAnswer(2))">@answer2</button>
         <button @onclick="(() => CheckAnswer(3))">@answer3</button>
@@ -49,5 +52,7 @@ else
     public int Var3 { get; set; }
     [Parameter]
     public int Var4 { get; set; }
+
+    
 
 }
