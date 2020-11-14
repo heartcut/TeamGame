@@ -60,9 +60,20 @@ namespace TeamGame.MinigameComps
 
         //this is the onload overridded method
         //you can do some kind of wait stuff idk but it works for now
+        //COLORS FOR THE FIRST PART TO MEMORIZE
         string firstcolor;
         string secondcolor;
         string thirdcolor;
+        //number for the first part to memorize
+        string firstnum;
+        string secondnum;
+        string thirdnum;
+        string questionoranswer;
+        string coloranswer;
+        string numberanswer;
+        string positionofanswer;
+        string fakeanswer1;
+        string fakeanswer2;
         protected override async Task OnInitializedAsync()
         {
             //below sets the var from the db to something useable within the code
@@ -89,6 +100,21 @@ namespace TeamGame.MinigameComps
                 case "3": thirdcolor = "yellow"; break;
                 case "4": thirdcolor = "green"; break;
             }
+            //second var
+            firstnum = Var2.ToString().Substring(0, 1);
+            secondnum = Var2.ToString().Substring(1, 1);
+            thirdnum = Var2.ToString().Substring(2, 1);
+
+            //thirdvar
+            questionoranswer = Var3.ToString().Substring(0, 1);
+            coloranswer = Var3.ToString().Substring(1, 1);
+            numberanswer = Var3.ToString().Substring(2, 1);
+
+            //fourth var
+            positionofanswer = Var4.ToString().Substring(0, 1);
+            fakeanswer1 = Var4.ToString().Substring(1, 1);
+            fakeanswer2 = Var4.ToString().Substring(2, 1);
+
             ///todo finish this up and fix the checkanswer below
             //todo
             //get rid of the below
