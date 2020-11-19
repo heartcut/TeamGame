@@ -2,12 +2,20 @@
 
 @inject NavigationManager navManager
 
-@if (DBConnection.CheckLobby(lobnum))
+@if (true)
 {
     //add player to lobby in db
     playnum = DBConnection.IJoined(lobnum);
     //code to populate the player in the db
-    <GamePage MyLobbyNum="@lobnum" MyPlayerNum="@playnum" />
+    if(playnum == 0)
+    {
+
+    }
+    else
+    {
+        <GamePage MyLobbyNum="@lobnum" MyPlayerNum="@playnum" />
+    }
+    
 }
 else
 {

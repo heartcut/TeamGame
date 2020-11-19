@@ -13,27 +13,29 @@ namespace TeamGame.SqlAccess
     {
         //this just takes a lobbynumber and checks if the playersinlobby var in that row is under 4
         //and returns true or false accordingly
-        public static bool CheckLobby(int lobnumber)
-        {
-            var cs = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\source\ServerSideBlazor\DataAccessLibrary\Database1.mdf;Integrated Security=True;Connect Timeout=30";
+        //no longer use this
+        //todo maybe delete
+        //public static bool CheckLobby(int lobnumber)
+        //{
+        //    var cs = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\source\ServerSideBlazor\DataAccessLibrary\Database1.mdf;Integrated Security=True;Connect Timeout=30";
 
-            using var con = new SqlConnection(cs);
-            con.Open();
-            //new id 3 means making a new car object with the id = to 3??
-            int players = con.QueryFirst<int>(@"SELECT PlayersInLobby FROM CursorPos WHERE LobbyNumber=" + lobnumber);
-            bool canjoin;
-            if (players < 4)
-            {
-                canjoin = true;
-            }
-            else
-            {
-                canjoin = false;
-            }
-            con.Dispose();
+        //    using var con = new SqlConnection(cs);
+        //    con.Open();
+        //    //new id 3 means making a new car object with the id = to 3??
+        //    int players = con.QueryFirst<int>(@"SELECT PlayersInLobby FROM CursorPos WHERE LobbyNumber=" + lobnumber);
+        //    bool canjoin;
+        //    if (players < 4)
+        //    {
+        //        canjoin = true;
+        //    }
+        //    else
+        //    {
+        //        canjoin = false;
+        //    }
+        //    con.Dispose();
 
-            return canjoin;
-        }
+        //    return canjoin;
+        //}
         public static NavigationManager navManager;
         public static int IJoined(int lobnumber)
         {
@@ -43,9 +45,9 @@ namespace TeamGame.SqlAccess
             using var con = new SqlConnection(cs);
             con.Open();
             //new id 3 means making a new car object with the id = to 3??
-            DBGameVarModel GVM = new DBGameVarModel();
-            GVM = con.QueryFirst<DBGameVarModel>(@"SELECT * FROM CursorPos WHERE LobbyNumber=" + lobnumber);
-            int players = GVM.PlayersInLobby;
+            //DBGameVarModel GVM = new DBGameVarModel();
+            int players = con.QueryFirst<int>(@"SELECT PlayersInLobby FROM CursorPos WHERE LobbyNumber=" + lobnumber);
+            //int players = GVM.PlayersInLobby;
             if (players == 0)
             {
                 players++;
@@ -85,7 +87,7 @@ namespace TeamGame.SqlAccess
             //new id 3 means making a new car object with the id = to 3??
             int players = con.QueryFirst<int>(@"SELECT PlayersInLobby FROM CursorPos WHERE LobbyNumber=" + lobnumber);
             players--;
-            con.Execute("UPDATE CursorPos SET PlayersInLobby ="+players+", Set GameStarted = 0 WHERE LobbyNumber = " + lobnumber + "; ");
+            con.Execute("UPDATE CursorPos SET PlayersInLobby = "+players+", GameStarted = 0 WHERE LobbyNumber = " + lobnumber + "; ");
             
             con.Dispose();
 

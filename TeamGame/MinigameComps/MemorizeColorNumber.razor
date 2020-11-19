@@ -1,29 +1,45 @@
 ﻿
 
-@if (MCNGameState==1) {
+@if (MCNGameState == 1)
+{
     @*memorizing and choosing game state*@
     if (memorizetimer >= 0)
     {
-    <h2 id="game-title">REmember the colours and the numbers</h2>
-    <div>
-        @*todo fix this shit to convert my db vars into the right stuff*@
-        <button class="memorizeelement" style=background-color:@firstcolor>@firstnum</button>
-        <button class="memorizeelement" style=background-color:@secondcolor>@secondnum</button>
-        <button class="memorizeelement" style=background-color:@thirdcolor>@thirdnum</button>
-    </div>
-    <div style="font-size:35px;">
-        @memorizetimer
-    </div>
+        <h2 id="game-title">REmember the colours and the numbers</h2>
+        <div>
+            @*todo fix this shit to convert my db vars into the right stuff*@
+            <button class="memorizeelement" style=background-color:@firstcolor>@firstnum</button>
+            <button class="memorizeelement" style=background-color:@secondcolor>@secondnum</button>
+            <button class="memorizeelement" style=background-color:@thirdcolor>@thirdnum</button>
+        </div>
+        <div style="font-size:35px;">
+            @memorizetimer
+        </div>
     }
     else
     {
-         @* todo*@
+        @* todo*@
         @*need to fix it so the question is here*@
         @*<h2>What @con was the @whichbox box?</h2>*@
-        <button @onclick="(() => CheckAnswer(1))">@answer1</button>
-        <button @onclick="(() => CheckAnswer(2))">@answer2</button>
-        <button @onclick="(() => CheckAnswer(3))">@answer3</button>
-        <h3>@mcnanswer</h3>
+        @if (colorornumber == "1")
+        {
+            <p>what number was the @colanswer box?</p>
+
+            <button @onclick="(() => CheckAnswer(2,holderanswer1))">@holderanswer1</button>
+            <button @onclick="(() => CheckAnswer(2,holderanswer2))">@holderanswer2</button>
+            <button @onclick="(() => CheckAnswer(2,holderanswer3))">@holderanswer3</button>
+        }
+        else
+        {
+            <p>what color was the number @numanswer box?</p>
+
+            <button @onclick="(() => CheckAnswer(1,holderanswer1))">@holderanswer1</button>
+            <button @onclick="(() => CheckAnswer(1,holderanswer2))">@holderanswer2</button>
+            <button @onclick="(() => CheckAnswer(1,holderanswer3))">@holderanswer3</button>
+        }
+
+        <h3>@colanswer</h3>
+        <h3>@numanswer</h3>
     }
 }
 else if (MCNGameState == 2)
@@ -36,8 +52,8 @@ else
     @*incorrect answer state*@
     <h2>WRONG ANSWER</h2>
 }
-<br/>
-<br/>
+<br />
+<br />
 
 
 @code {
@@ -53,6 +69,6 @@ else
     [Parameter]
     public int Var4 { get; set; }
 
-    
+
 
 }

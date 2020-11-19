@@ -68,12 +68,13 @@ namespace TeamGame.MinigameComps
         string firstnum;
         string secondnum;
         string thirdnum;
-        string questionoranswer;
-        string coloranswer;
-        string numberanswer;
+        string colorornumber;
         string positionofanswer;
         string fakeanswer1;
         string fakeanswer2;
+        string numanswer;
+        string colanswer;
+        int answerspot;
         protected override async Task OnInitializedAsync()
         {
             //below sets the var from the db to something useable within the code
@@ -106,29 +107,78 @@ namespace TeamGame.MinigameComps
             thirdnum = Var2.ToString().Substring(2, 1);
 
             //thirdvar
-            questionoranswer = Var3.ToString().Substring(0, 1);
-            coloranswer = Var3.ToString().Substring(1, 1);
-            numberanswer = Var3.ToString().Substring(2, 1);
-
+            //1 is ask number-2 is ask color
+            colorornumber = Var3.ToString().Substring(0, 1);
+            numanswer = Var3.ToString().Substring(2, 1);
+            
+            switch (Var3.ToString().Substring(1, 1))
+            {
+                case "1": colanswer = "red"; break;
+                case "2": colanswer = "blue"; break;
+                case "3": colanswer = "yellow"; break;
+                case "4": colanswer = "green"; break;
+            }
+            
             //fourth var
             positionofanswer = Var4.ToString().Substring(0, 1);
-            fakeanswer1 = Var4.ToString().Substring(1, 1);
-            fakeanswer2 = Var4.ToString().Substring(2, 1);
+            if (colorornumber == "1")
+            {
+                //ask for number
+                fakeanswer1 = Var4.ToString().Substring(1, 1);
+                fakeanswer2 = Var4.ToString().Substring(2, 1);
+                switch (positionofanswer)
+                {
+                    case "1": holderanswer1 = numanswer; holderanswer2 = fakeanswer1; holderanswer3 = fakeanswer2; break;
+                    case "2": holderanswer1 = fakeanswer1; holderanswer2 = numanswer; holderanswer3 = fakeanswer2; break;
+                    case "3": holderanswer1 = fakeanswer2; holderanswer2 = fakeanswer1; holderanswer3 = numanswer; break;
+                }
 
+            }
+            else
+            {
+                //ask for color
+                //1-red/2-blue/3-yellow/4-green
+                switch (Var4.ToString().Substring(1, 1))
+                {
+                    case "1": fakeanswer1 = "red"; break;
+                    case "2": fakeanswer1 = "blue"; break;
+                    case "3": fakeanswer1 = "yellow"; break;
+                    case "4": fakeanswer1 = "green"; break;
+                }
+                switch (Var4.ToString().Substring(2, 1))
+                {
+                    case "1": fakeanswer2 = "red"; break;
+                    case "2": fakeanswer2 = "blue"; break;
+                    case "3": fakeanswer2 = "yellow"; break;
+                    case "4": fakeanswer2 = "green"; break;
+                }
+                switch (positionofanswer)
+                {
+                    case "1": holderanswer1 = colanswer; holderanswer2 = fakeanswer1; holderanswer3 = fakeanswer2; break;
+                    case "2": holderanswer1 = fakeanswer1; holderanswer2 = colanswer; holderanswer3 = fakeanswer2; break;
+                    case "3": holderanswer1 = fakeanswer2; holderanswer2 = fakeanswer1; holderanswer3 = colanswer; break;
+                }
+            }
+            //todo need to add another variable form the generation so that the answer spots are in the same place for everyone
+            
             ///todo finish this up and fix the checkanswer below
             //todo
             //get rid of the below
             MemorizeStopWatch();
         }
 
-        int memorizetimer = 2;
+        public string holderanswer1;
+        public string holderanswer2;
+        public string holderanswer3;
+
+        int memorizetimer = 5;
         bool is_stopwatchrunning = false;
         async Task MemorizeStopWatch()
         {
             is_stopwatchrunning = true;
             while (is_stopwatchrunning)
             {
-                await Task.Delay(5000);
+                await Task.Delay(1000);
                 if (is_stopwatchrunning)
                 {
                     memorizetimer = memorizetimer - 1;
@@ -136,37 +186,78 @@ namespace TeamGame.MinigameComps
                 }
             }
         }
-
         //1 is game state 2 is correct 3 is wrong
         public int MCNGameState = 1;
         //picking thw answer optoins
-        public string mcnanswer;
-        public string whichbox;
-        public string answer1;
-        public string answer2;
-        public string answer3;
-        public int whichisanswer;
-        public void CheckAnswer(int a)
+        public void CheckAnswer(int onecolortwonumber,string answer)
         {
-            if (a == whichisanswer)
+            if (onecolortwonumber == 1)
             {
-                //correct screen
-                MCNGameState = 2;
+                if (answer == colanswer)
+                {
+                    //correct screen
+                    MCNGameState = 2;
+                }
+                else
+                {
+                    //incorrect screen
+                    MCNGameState = 3;
+                }
+                
             }
             else
             {
-                //incorrect screen
-                MCNGameState = 3;
+                if (answer == numanswer)
+                {
+                    //correct screen
+                    MCNGameState = 2;
+                }
+                else
+                {
+                    //incorrect screen
+                    MCNGameState = 3;
+                }
             }
         }
     }
 
     public partial class MakeSquare
     {
-        public string uprot = "rotatezero";
-        public string downrot = "rotatezero";
-        public string leftrot = "rotatezero";
-        public string rightrot = "rotatezero";
+        string uprot;
+        string downrot;
+        string leftrot;
+        string rightrot;
+        //todo fix this
+        protected override async Task OnInitializedAsync()
+        {
+            
+            switch (Var1)
+            {
+                case "1": uprot = "rotateninty"; break;
+                case "2": uprot = "rotateoneeighty"; break;
+                case "3": uprot = "rotatetwoseventy"; break;
+            }
+            switch (Var2)
+            {
+                case "1": downrot = "rotateninty"; break;
+                case "2": downrot = "rotateoneeighty"; break;
+                case "3": downrot = "rotatetwoseventy"; break;
+            }
+            switch (Var3)
+            {
+                case "1": leftrot = "rotateninty"; break;
+                case "2": leftrot = "rotateoneeighty"; break;
+                case "3": leftrot = "rotatetwoseventy"; break;
+            }
+            switch (Var4)
+            {
+                case "1": rightrot = "rotateninty"; break;
+                case "2": rightrot = "rotateoneeighty"; break;
+                case "3": rightrot = "rotatetwoseventy"; break;
+            }
+        }
+
+
         public string NextPosition(string a)
         {
             if (a == "rotatezero")
